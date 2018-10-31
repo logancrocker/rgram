@@ -1,0 +1,4 @@
+#Wed Oct 31 12:25:54 GMT-08:00 2018
+base.0=D\:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

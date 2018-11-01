@@ -642,6 +642,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable school_spirit_bearlogo
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -679,6 +680,8 @@ id beginning
 id blocking
 id bottom
 id buttonPanel
+id button_login
+id button_register
 id center
 id center_horizontal
 id center_vertical
@@ -698,6 +701,7 @@ id dimensions
 id direct
 id disableHome
 id edit_query
+id email
 id end
 id expand_activities_button
 id expanded_menu
@@ -734,10 +738,14 @@ id notification_main_column_container
 id packed
 id parent
 id parentPanel
+id password
 id percent
 id progress_circular
 id progress_horizontal
 id radio
+id register_email
+id register_password1
+id register_password2
 id right
 id right_icon
 id right_side
@@ -824,7 +832,9 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_feed
 layout activity_main
+layout activity_register
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big

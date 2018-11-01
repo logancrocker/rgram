@@ -376,6 +376,10 @@
         "source": "C:\\Users\\logan\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\becccfc3b0c2352e40cfe246e4780ab2\\res\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
+        "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\drawable_school_spirit_bearlogo.png.flat",
+        "source": "D:\\School\\CS180\\rgram\\source\\app\\src\\main\\res\\drawable\\school_spirit_bearlogo.png"
+    },
+    {
         "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
         "source": "C:\\Users\\logan\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\becccfc3b0c2352e40cfe246e4780ab2\\res\\drawable-xhdpi-v4\\abc_popup_background_mtrl_mult.9.png"
     },
@@ -1256,6 +1260,10 @@
         "source": "C:\\Users\\logan\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\becccfc3b0c2352e40cfe246e4780ab2\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
     },
     {
+        "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_register.xml.flat",
+        "source": "D:\\School\\CS180\\rgram\\source\\app\\src\\main\\res\\layout\\activity_register.xml"
+    },
+    {
         "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "C:\\Users\\logan\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\eda30ce0c1aeb6a5a7c8aec65a3064bf\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
     },
@@ -1434,6 +1442,10 @@
     {
         "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_list_selector_background_transition_holo_light.xml.flat",
         "source": "C:\\Users\\logan\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\becccfc3b0c2352e40cfe246e4780ab2\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_feed.xml.flat",
+        "source": "D:\\School\\CS180\\rgram\\source\\app\\src\\main\\res\\layout\\activity_feed.xml"
     },
     {
         "merged": "D:\\School\\CS180\\rgram\\source\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",

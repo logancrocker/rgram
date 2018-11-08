@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "545453619729",
+    "firebase_url": "https://rgram-885a2.firebaseio.com",
+    "project_id": "rgram-885a2",
+    "storage_bucket": "rgram-885a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545453619729:android:4058613574d003a3",
+        "android_client_info": {
+          "package_name": "com.rgram.rgram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545453619729-tppbgga16cdj46381r6nd7sn4gp6j11a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5jyt1NBBcQcet5oc3nkTWuvM2QTPwiKw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

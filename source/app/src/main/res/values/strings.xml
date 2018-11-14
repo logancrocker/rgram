@@ -1,6 +1,14 @@
 <resources>
-    <string name="app_name">R\'Gram</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">R\'Gram</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saving_image">Saving image</string>
+
+    <string name="preparing_card">Preparing card</string>
+
+    <string name="no_storage_card">No storage card</string>
+
+    <string name="not_enough_space">Not enough space</string>
 </resources>

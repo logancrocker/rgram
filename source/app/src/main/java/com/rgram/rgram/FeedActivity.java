@@ -1,10 +1,9 @@
 package com.rgram.rgram;
 
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -17,7 +16,7 @@ public class FeedActivity extends AppCompatActivity  {
     public ViewPager vp;
     private BottomNavigationBar mBottomNavigationBar;
     List<Fragment> list=new ArrayList<>();
-    String[] titles={"feed","other1","other2","profile"};
+    String[] titles={"feed","other1","other2","post","profile"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +29,7 @@ public class FeedActivity extends AppCompatActivity  {
         vp = (ViewPager) findViewById(R.id.view_pager);
         list.add(new FeedFragment());
         list.add(new OtherFragment());
+        list.add(new PostFragment());
         list.add(new OtherFragment());
         list.add(new ProfileFragment());
         vp.setAdapter(new FeedAdapter(getSupportFragmentManager(),list));
@@ -64,6 +64,7 @@ public class FeedActivity extends AppCompatActivity  {
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,
                 "feed"))//添加图标和文字
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "other1"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,"post"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "other2"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "profile"))
                 .initialise();

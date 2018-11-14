@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "545453619729-0knq26134jfcp15m6kat0oel12938l3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rgram.rgram",
+            "certificate_hash": "62e12e2b23ecb95c49bff22dc5734e9db051c569"
+          }
+        },
+        {
           "client_id": "545453619729-tppbgga16cdj46381r6nd7sn4gp6j11a.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545453619729-tppbgga16cdj46381r6nd7sn4gp6j11a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

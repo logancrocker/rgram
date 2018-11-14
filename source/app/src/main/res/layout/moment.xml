@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/userInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/moment_profile"
+                    android:src="@drawable/user"/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:text="usename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+            <ImageView
+                android:id="@+id/imageView"
+                android:background="#FF112233"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_margin="10dp"/>
+
+
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/like"
+                    android:id="@+id/like"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="30"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:id="@+id/likenum"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/chat"
+                    android:id="@+id/chat"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="15"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:id="@+id/chatnum"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal" >-->
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="50dp" >-->
+
+            <!--<com.example.ponylistviewdemo.RoundedCornerImageView-->
+            <!--android:id="@+id/show_icon"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:clickable="false"-->
+            <!--android:focusable="false"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/tx_1" />-->
+            <!--</RelativeLayout>-->
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/me_usermsg"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical" >-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical" >-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/show_name"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="wangxuan"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="15sp" />-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="25dp"-->
+            <!--android:layout_height="15dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--/>-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:gravity="center_vertical" >-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/show_msg"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="一分钟前"-->
+            <!--android:textSize="12sp" />-->
+            <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical" >-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical" >-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:gravity="center_vertical" >-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/message_last"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:text="帖子数目："-->
+            <!--android:textSize="12sp"-->
+            <!--android:visibility="invisible" />-->
+            <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        </LinearLayout>
+
+        <!--<ImageViewView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:layout_marginTop="50dp"-->
+
+        <!--android:textSize="14sp" />-->
+
+
+
+
+
+
+        <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

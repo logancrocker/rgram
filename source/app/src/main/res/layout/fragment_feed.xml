@@ -6,11 +6,14 @@
     tools:context=".FeedFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ListView
+        android:id="@+id/show_moment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColorHint="@color/colorPink"
-        android:textSize="36sp"
-        android:text="This is feed" />
+        android:layout_height="wrap_content"
+        android:divider="#cccccc"
+        android:dividerHeight="0.1dp"
+        android:scrollbars="none"
+        />
 
 </FrameLayout>

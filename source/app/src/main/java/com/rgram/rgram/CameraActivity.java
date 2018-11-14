@@ -115,11 +115,15 @@ public class CameraActivity extends AppCompatActivity {
 
                                 EditText desc = findViewById(R.id.textView2);
                                 String postDesc = desc.getText().toString();
-                                Post newPost = new Post(0, "images/"+file.getLastPathSegment(), postDesc);
+                                //Post newPost = new Post(0, "images/"+file.getLastPathSegment(), postDesc);
 
-                                String uid = currentUser.getUid();
+                                //String uid = currentUser.getUid();
 
-                                database.child("posts").child(uid).setValue(newPost);
+                                //database.child("posts").child(uid).setValue(newPost);
+                                DatabaseReference postsRef = database.child("posts");
+                                DatabaseReference newpostRef = postsRef.push();
+                                String id = newpostRef.getKey();
+                                newpostRef.setValue(new Post(0, "images/"+file.getPath().substring(file.getPath().lastIndexOf("."))+id, postDesc));
 
                             }
                         });

@@ -66,7 +66,6 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        Log.d("notebook", "useless");
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
@@ -102,8 +101,12 @@ public class CameraActivity extends AppCompatActivity {
                 postBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //create URI for image
                         final Uri file = Uri.fromFile(new File(path));
-                        StorageReference postRef = storageRef.child("images/"+file.getLastPathSegment());
+                        //get reference to image storage
+                        //we create a unique file name, using the current time and retain the file extension
+                        StorageReference postRef = storageRef.child("images/"+System.currentTimeMillis()+path.substring(path.lastIndexOf(".")));
+                        //upload image
                         UploadTask uploadTask = postRef.putFile(file);
 
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -126,7 +129,7 @@ public class CameraActivity extends AppCompatActivity {
                                 DatabaseReference postsRef = database.child("posts");
                                 DatabaseReference newpostRef = postsRef.push();
                                 String id = newpostRef.getKey();
-                                newpostRef.setValue(new Post(0, "images/"+file.getPath().substring(file.getPath().lastIndexOf("."))+id, postDesc));
+                                newpostRef.setValue(new Post(0, "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")), postDesc));
 
                             }
                         });

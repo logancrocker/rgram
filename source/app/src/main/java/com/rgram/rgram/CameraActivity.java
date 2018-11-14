@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.rgram.rgram.CropImage.CropImage;
 import com.rgram.rgram.CropImage.InternalStorageContentProvider;
 
@@ -40,6 +50,13 @@ public class CameraActivity extends AppCompatActivity {
     private File mFileTemp;
     String TAG = "cropimage";
     ImageView image;
+    String path;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    StorageReference postRef;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +91,38 @@ public class CameraActivity extends AppCompatActivity {
 
                 } else if (options[item].equals("Choose from Gallery")) {
                     AvatarFromGallery();
-
                 }
+
+                final Button postBtn = findViewById(R.id.button2);
+                postBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Uri file = Uri.fromFile(new File(path));
+                        StorageReference postRef = storageRef.child("images/"+file.getLastPathSegment());
+                        UploadTask uploadTask = postRef.putFile(file);
+
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.d("notebook", "upload failed");
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Log.d("notebook", "upload complete");
+
+                                Post newPost = new Post(0, "images/"+file.getLastPathSegment(), "placeholder");
+
+                                String uid = currentUser.getUid();
+
+                                database.child("posts").child(uid).setValue(newPost);
+
+                            }
+                        });
+
+                    }
+                });
+
             }
         });
         builder.show();
@@ -150,7 +197,7 @@ public class CameraActivity extends AppCompatActivity {
                 break;
             case REQUEST_CODE_CROP_IMAGE:
 
-                String path = data.getStringExtra(CropImage.IMAGE_PATH);
+                path = data.getStringExtra(CropImage.IMAGE_PATH);
                 if (path == null) {
 
                     return;

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -111,7 +113,9 @@ public class CameraActivity extends AppCompatActivity {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 Log.d("notebook", "upload complete");
 
-                                Post newPost = new Post(0, "images/"+file.getLastPathSegment(), "placeholder");
+                                EditText desc = findViewById(R.id.textView2);
+                                String postDesc = desc.getText().toString();
+                                Post newPost = new Post(0, "images/"+file.getLastPathSegment(), postDesc);
 
                                 String uid = currentUser.getUid();
 

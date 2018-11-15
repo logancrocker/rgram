@@ -39,7 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CameraActivity" />
         <activity android:name=".CropImage.MonitoredActivity" />
         <activity android:name=".CropImage.CropImage" />
         <activity android:name=".RegisterActivity" />

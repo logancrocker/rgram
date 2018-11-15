@@ -10,12 +10,6 @@ android:layout_height="match_parent">
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:id="@+id/relLayout2">
-
 
         <!-- Upper Part Layout-->
         <LinearLayout
@@ -23,10 +17,10 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100"
-            android:id="@+id/upper_part_layout">
+            android:id="@+id/upper_part_layout"
+            android:baselineAligned="false">
 
 
-            <!--Profile Image Layout -->
             <!--Profile Image Layout -->
             <RelativeLayout
                 android:layout_width="0dp"
@@ -148,9 +142,6 @@ android:layout_height="match_parent">
 
         </RelativeLayout>
         <!---End of Lower Part-->
-
-
-    </RelativeLayout>
 
 
 </RelativeLayout>

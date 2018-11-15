@@ -86,7 +86,6 @@ public class PostFragment extends Fragment {
 
         }
         image = view.findViewById(R.id.image);
-        Log.d("notebook", image.getDrawable().toString());
         Button fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,11 +225,9 @@ public class PostFragment extends Fragment {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals("Take Photo")) {
                     AvatarFromCamera();
-                    //image.setVisibility(View.VISIBLE);
 
                 } else if (options[item].equals("Choose from Gallery")) {
                     AvatarFromGallery();
-                    //image.setVisibility(View.VISIBLE);
                 }
 
                 final Button postBtn = view.findViewById(R.id.button2);
@@ -258,13 +255,20 @@ public class PostFragment extends Fragment {
                                 String postDesc = desc.getText().toString();
                                 DatabaseReference postsRef = database.child("posts");
                                 DatabaseReference newpostRef = postsRef.push();
+                                //get current user id
+                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
-                                newpostRef.setValue(new Post(0, "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")), postDesc));
+                                newpostRef.setValue(new Post(0,
+                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
+                                        postDesc, uid));
 
-                                //we want to return to our feed
-                                //must switch fragments
+                                //we want to go to the post page
                                 //TODO uhhhhh
-                                //FragmentTransaction fragmentTransaction =
+                                Activity a = getActivity();
+                                a.finish();
+                                Intent intent = new Intent();
+                                intent.setClass(a, a.getClass());
+                                a.startActivity(intent);
                             }
                         });
 

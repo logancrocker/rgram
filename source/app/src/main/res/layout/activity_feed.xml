@@ -8,6 +8,10 @@
     android:orientation="vertical"
     tools:context="com.rgram.rgram.FeedActivity">
 
+    <!--<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:id="@+id/fragment_container" >-->
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
@@ -22,5 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
     </com.ashokvarma.bottomnavigation.BottomNavigationBar>
+
+    <!--</FrameLayout>-->
 
 </LinearLayout >

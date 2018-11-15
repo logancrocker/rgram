@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment {
 
     private android.support.v4.app.FragmentManager manager;
     private FragmentTransaction ft;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     User myaccount = new User();
     TextView edit_profile, posts_num, following_num, followers_num, display_name, description;
@@ -49,7 +50,7 @@ public class ProfileFragment extends Fragment {
     private SimpleAdapter simadapter;
 
     public ImageView iv;
-    int[] imgs = new int[3];
+    int[] imgs = new int[6];
 
     int user_id, posts, following, followers;
     String email, image;
@@ -109,7 +110,7 @@ public class ProfileFragment extends Fragment {
         //set name and description
         initData();
         datalist = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 6; i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image", imgs[i]);
             datalist.add(map);
@@ -127,6 +128,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //initiate setting activity
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +158,7 @@ public class ProfileFragment extends Fragment {
 
     private void initData() {
         for (int i = 0; i < imgs.length; i++) {
-            int imgI = i;
+            int imgI = i / 2;
             // 获取其他类的属性，通过属性获取属性对应得值
             // null代表的是静态变量，非静态变量需要传递对象
             try {

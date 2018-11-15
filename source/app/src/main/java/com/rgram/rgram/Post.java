@@ -6,19 +6,22 @@ public class Post
     public Integer likes;
     public String path;
     public String imgDescription;
+    public String uid;
 
     public Post()
     {
         this.likes = 0;
         this.path = "";
         this.imgDescription = "";
+        uid = "";
     }
 
-    public Post(Integer likes, String path, String imgDescription)
+    public Post(Integer likes, String path, String imgDescription, String uid)
     {
         this.likes = likes;
         this.path = path;
         this.imgDescription = imgDescription;
+        this.uid = uid;
     }
 
     public Integer getLikes() { return likes; }

@@ -2,6 +2,7 @@ package com.rgram.rgram;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,7 +13,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity  {
+public class FeedActivity extends FragmentActivity {
     public ViewPager vp;
     private BottomNavigationBar mBottomNavigationBar;
     List<Fragment> list=new ArrayList<>();
@@ -26,7 +27,7 @@ public class FeedActivity extends AppCompatActivity  {
         setTitle("Feed");
         setBottomNavigationBar();
 
-        vp = (ViewPager) findViewById(R.id.view_pager);
+        vp = findViewById(R.id.view_pager);
         list.add(new FeedFragment());
         list.add(new OtherFragment());
         list.add(new PostFragment());

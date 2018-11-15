@@ -17,7 +17,7 @@
         android:id="@+id/image"
         android:layout_width="337dp"
         android:layout_height="306dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/pic_missing" />
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/fab"

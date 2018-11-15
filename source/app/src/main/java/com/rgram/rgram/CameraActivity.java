@@ -66,16 +66,13 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
-        Log.d("notebook", "testing testing");
-
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
         } else {
             mFileTemp = new File(this.getFilesDir(), TEMP_PHOTO_FILE_NAME);
         }
-         image = (ImageView) findViewById(R.id.image);
+        image = (ImageView) findViewById(R.id.image);
         Button fab = (Button) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +92,11 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals("Take Photo")) {
                     AvatarFromCamera();
+                    image.setVisibility(View.VISIBLE);
 
                 } else if (options[item].equals("Choose from Gallery")) {
                     AvatarFromGallery();
+                    image.setVisibility(View.VISIBLE);
                 }
 
                 final Button postBtn = findViewById(R.id.button2);

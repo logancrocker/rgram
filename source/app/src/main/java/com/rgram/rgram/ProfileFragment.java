@@ -2,6 +2,8 @@ package com.rgram.rgram;
 
 ;
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,19 +12,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,18 +50,24 @@ public class ProfileFragment extends Fragment {
 
     private android.support.v4.app.FragmentManager manager;
     private FragmentTransaction ft;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //database instance
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    StorageReference storage = FirebaseStorage.getInstance().getReference();
+
+    private List<Post> post_list;
+    private List<Image> image_list;
 
     User myaccount = new User();
     TextView edit_profile, posts_num, following_num, followers_num, display_name, description;
     CircleImageView user_profile_image;
-    GridView images_grid_layout;
+    GridView gridView;
 
     private List<Map<String, Object>> datalist;
-    private SimpleAdapter simadapter;
+    SimpleAdapter simadapter;
 
     public ImageView iv;
     int[] imgs = new int[6];
+    ArrayList<String> urls;
 
     int user_id, posts, following, followers;
     String email, image;
@@ -72,6 +89,8 @@ public class ProfileFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        post_list = new ArrayList<>();
 
         //grab current user
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -103,28 +122,52 @@ public class ProfileFragment extends Fragment {
         description = (TextView) getView().findViewById(R.id.description);
 
         user_profile_image = (CircleImageView) getView().findViewById(R.id.profile_image);
-        images_grid_layout = (GridView) getView().findViewById(R.id.images_grid_layout);
+        gridView = (GridView) getView().findViewById(R.id.images_grid_layout);
         iv = (ImageView) getView().findViewById(R.id.img_large);
         edit_profile.setText("Edit Profile");
 
-        //set name and description
-        initData();
-        datalist = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < 6; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("image", imgs[i]);
-            datalist.add(map);
-        }
+        //add all posts by current user to a list
+        final DatabaseReference posts = database.child("posts");
+        Query myposts = posts.orderByChild("uid").equalTo(currUid);
+        myposts.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                    {
+                        Post curr = snapshot.getValue(Post.class);
+                        post_list.add(curr);
+                    }
+                    //set post number
+                    posts_num.setText(String.valueOf(post_list.size()));
+                    //set up grid view
+                    int gridWidth = getResources().getDisplayMetrics().widthPixels;
+                    int imgWidth = gridWidth / 3;
+                    gridView.setColumnWidth(imgWidth);
+                    urls = new ArrayList<>();
+                    for (int i = 0; i < post_list.size(); i++)
+                    {
+                        storage.child(post_list.get(i).getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                urls.add(uri.toString());
+                                Log.d("notebook", uri.toString());
+                                //Picasso.get().load(urls.get(0)).into(iv);
+                                GridAdapter gridAdapter = new GridAdapter(getActivity(), urls);
+                                gridView.setAdapter(gridAdapter);
+                            }
+                        });
+                    }
 
-        simadapter = new SimpleAdapter(this.getActivity(), datalist, R.layout.images, new String[]{"image"}, new int[]{R.id.image});
-        images_grid_layout.setAdapter(simadapter);
-        images_grid_layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    //add to adapter
+                    //TODO
+                }
+            }
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                iv.setImageResource(imgs[position]);
             }
         });
 
@@ -136,36 +179,10 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
 
-
-                // TODO Auto-generated method stub
-//                Intent settingsIntenet = new Intent(MyProfileActivity.this, SettingActivity.class);
-//                settingsIntenet.putExtra("user_id", 43);
-//                settingsIntenet.putExtra("username", "lynn");
-//                settingsIntenet.putExtra("email", email);
-//                settingsIntenet.putExtra("imageProfile", image);
-
-//                settingsIntenet.putExtra("following", following);
-//                settingsIntenet.putExtra("followers", followers);
-//                settingsIntenet.putExtra("posts", posts);
-    //            startActivityForResult(settingsIntenet, 1);
-                // Log.i("匿名内部类", "点击事件");
-
-
             }
         });
 
     }
 
-    private void initData() {
-        for (int i = 0; i < imgs.length; i++) {
-            int imgI = i / 2;
-            // 获取其他类的属性，通过属性获取属性对应得值
-            // null代表的是静态变量，非静态变量需要传递对象
-            try {
-                imgs[i] = R.drawable.class.getField("img0" + imgI).getInt(null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 }

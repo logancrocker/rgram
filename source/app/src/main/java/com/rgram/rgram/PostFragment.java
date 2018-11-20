@@ -238,7 +238,8 @@ public class PostFragment extends Fragment {
                         final Uri file = Uri.fromFile(new File(path));
                         //get reference to image storage
                         //we create a unique file name, using the current time and retain the file extension
-                        StorageReference postRef = storageRef.child("images/"+System.currentTimeMillis()+path.substring(path.lastIndexOf(".")));
+                        final String postPath = "images/"+System.currentTimeMillis()+path.substring(path.lastIndexOf("."));
+                        StorageReference postRef = storageRef.child(postPath);
                         //upload image
                         UploadTask uploadTask = postRef.putFile(file);
 
@@ -258,9 +259,7 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
-                                newpostRef.setValue(new Post(0,
-                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
-                                        postDesc, uid));
+                                newpostRef.setValue(new Post(0, postPath, postDesc, uid));
 
                                 //we want to go to the post page
                                 //TODO uhhhhh

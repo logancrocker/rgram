@@ -125,19 +125,16 @@ android:layout_height="match_parent">
                 android:layout_margin="10dp"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="1dp"
-                />
+                />-->
+
             <ImageView
                 android:id="@+id/img_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_margin="20dp"
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-
-                android:layout_below="@id/images_grid_layout"
-                />
+                android:scaleType="fitXY" />
 
 
         </RelativeLayout>

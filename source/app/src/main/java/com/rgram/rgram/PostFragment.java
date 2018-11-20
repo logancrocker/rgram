@@ -28,9 +28,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +52,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.zip.Inflater;
 
@@ -63,7 +70,18 @@ public class PostFragment extends Fragment {
     ImageView image;
     String path;
     View view;
-
+    CheckBox checkBox1;
+    CheckBox checkBox2;
+    CheckBox checkBox3;
+    CheckBox checkBox4;
+    CheckBox checkBox5;
+    CheckBox checkBox6;
+    CheckBox checkBox7;
+    CheckBox checkBox8;
+    CheckBox checkBox9;
+    CheckBox checkBox10;
+    CheckBox checkBox11;
+    CheckBox checkBox12;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     StorageReference postRef;
@@ -78,6 +96,18 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_post, container, false);
+        checkBox1=view.findViewById(R.id.checkBox1);
+        checkBox2=view.findViewById(R.id.checkBox2);
+        checkBox3=view.findViewById(R.id.checkBox3);
+        checkBox4=view.findViewById(R.id.checkBox4);
+        checkBox5=view.findViewById(R.id.checkBox5);
+        checkBox6=view.findViewById(R.id.checkBox6);
+        checkBox7=view.findViewById(R.id.checkBox7);
+        checkBox8=view.findViewById(R.id.checkBox8);
+        checkBox9=view.findViewById(R.id.checkBox9);
+        checkBox10=view.findViewById(R.id.checkBox10);
+        checkBox11=view.findViewById(R.id.checkBox11);
+        checkBox12=view.findViewById(R.id.checkBox12);
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
@@ -234,6 +264,58 @@ public class PostFragment extends Fragment {
                 postBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //show what tags are selected
+                        String result="selected tags:";
+                        final ArrayList tagsList = new ArrayList<String>();
+                        if(checkBox1.isChecked()){
+                            result+=" "+checkBox1.getText().toString();
+                            tagsList.add(checkBox1.getText().toString());
+                        }
+                        if(checkBox2.isChecked()){
+                            result+=" "+checkBox2.getText().toString();
+                            tagsList.add(checkBox2.getText().toString());
+                        }
+                        if(checkBox3.isChecked()){
+                            result+=" "+checkBox3.getText().toString();
+                            tagsList.add(checkBox3.getText().toString());
+                        }
+                        if(checkBox4.isChecked()){
+                            result+=" "+checkBox4.getText().toString();
+                            tagsList.add(checkBox4.getText().toString());
+                        }
+                        if(checkBox5.isChecked()){
+                            result+=" "+checkBox5.getText().toString();
+                            tagsList.add(checkBox5.getText().toString());
+                        }
+                        if(checkBox6.isChecked()){
+                            result+=" "+checkBox6.getText().toString();
+                            tagsList.add(checkBox6.getText().toString());
+                        }
+                        if(checkBox7.isChecked()){
+                            result+=" "+checkBox7.getText().toString();
+                            tagsList.add(checkBox7.getText().toString());
+                        }
+                        if(checkBox8.isChecked()){
+                            result+=" "+checkBox8.getText().toString();
+                            tagsList.add(checkBox8.getText().toString());
+                        }
+                        if(checkBox9.isChecked()){
+                            result+=" "+checkBox9.getText().toString();
+                            tagsList.add(checkBox9.getText().toString());
+                        }
+                        if(checkBox10.isChecked()){
+                            result+=" "+checkBox10.getText().toString();
+                            tagsList.add(checkBox10.getText().toString());
+                        }
+                        if(checkBox11.isChecked()){
+                            result+=" "+checkBox11.getText().toString();
+                            tagsList.add(checkBox11.getText().toString());
+                        }
+                        if(checkBox12.isChecked()){
+                            result+=" "+checkBox12.getText().toString();
+                            tagsList.add(checkBox12.getText().toString());
+                        }
+                        Toast.makeText(view.getContext(),result,Toast.LENGTH_LONG).show();
                         //create URI for image
                         final Uri file = Uri.fromFile(new File(path));
                         //get reference to image storage
@@ -259,7 +341,13 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
+<<<<<<< HEAD
                                 newpostRef.setValue(new Post(0, postPath, postDesc, uid));
+=======
+                                newpostRef.setValue(new Post(0,
+                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
+                                        postDesc, uid,tagsList));
+>>>>>>> 34051a11c99f24cd5854f9fa6f636994475515f3
 
                                 //we want to go to the post page
                                 //TODO uhhhhh

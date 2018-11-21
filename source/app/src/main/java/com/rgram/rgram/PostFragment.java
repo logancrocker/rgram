@@ -341,13 +341,9 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
-<<<<<<< HEAD
-                                newpostRef.setValue(new Post(0, postPath, postDesc, uid));
-=======
                                 newpostRef.setValue(new Post(0,
-                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
-                                        postDesc, uid,tagsList));
->>>>>>> 34051a11c99f24cd5854f9fa6f636994475515f3
+                                        postPath,
+                                        postDesc, uid, tagsList));
 
                                 //we want to go to the post page
                                 //TODO uhhhhh

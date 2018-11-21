@@ -1,5 +1,6 @@
 package com.rgram.rgram;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.media.Image;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,14 +36,14 @@ public class GridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent)
     {
         int gridWidth = context.getResources().getDisplayMetrics().widthPixels;
-        int imgWidth = gridWidth / 3;
+        int imgWidth = (gridWidth / 3) - 30;
         ImageView imageView;
         if (convertView == null)
         {
             imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(imgWidth, imgWidth));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(0,0,0,0);
+            imageView.setPadding(5,5,5,5);
         }
         else
         {
@@ -50,6 +52,8 @@ public class GridAdapter extends BaseAdapter {
         String url = getItem(position).toString();
         Picasso.get()
                 .load(url)
+                .fit()
+                .centerCrop()
                 .into(imageView);
         return imageView;
     }

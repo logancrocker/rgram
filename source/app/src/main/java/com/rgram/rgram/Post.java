@@ -54,7 +54,6 @@ public class Post
     public ArrayList getTags() {
         return tags;
     }
-
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }

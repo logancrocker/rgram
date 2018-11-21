@@ -142,26 +142,24 @@ public class ProfileFragment extends Fragment {
                     //set post number
                     posts_num.setText(String.valueOf(post_list.size()));
                     //set up grid view
-                    int gridWidth = getResources().getDisplayMetrics().widthPixels;
-                    int imgWidth = gridWidth / 3;
-                    gridView.setColumnWidth(imgWidth);
+                    //int gridWidth = getResources().getDisplayMetrics().widthPixels;
+                    //int imgWidth = gridWidth / 3;
+                    //gridView.setColumnWidth(imgWidth);
                     urls = new ArrayList<>();
-                    for (int i = 0; i < post_list.size(); i++)
+                    Log.d("notebook", String.valueOf(post_list.size()));
+                    for (Post p : post_list)
                     {
-                        storage.child(post_list.get(i).getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        Log.d("notebook", p.getPath());
+                        storage.child(p.getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                Log.d("notebook", "success");
                                 urls.add(uri.toString());
-                                Log.d("notebook", uri.toString());
-                                //Picasso.get().load(urls.get(0)).into(iv);
                                 GridAdapter gridAdapter = new GridAdapter(getActivity(), urls);
                                 gridView.setAdapter(gridAdapter);
                             }
                         });
                     }
-
-                    //add to adapter
-                    //TODO
                 }
             }
 

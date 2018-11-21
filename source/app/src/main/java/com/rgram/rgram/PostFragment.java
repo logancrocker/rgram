@@ -351,11 +351,11 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
-<<<<<<< Updated upstream
+
                                 newpostRef.setValue(new Post(0,
                                         postPath,
                                         postDesc, uid, tagsList));
-=======
+
 
 //                                newpostRef.setValue(new Post(0, postPath, postDesc, uid));
 //
@@ -363,7 +363,6 @@ public class PostFragment extends Fragment {
 //                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
 //                                        postDesc, uid,tagsList));
 
->>>>>>> Stashed changes
 
                                 //we want to go to the post page
                                 //TODO uhhhhh

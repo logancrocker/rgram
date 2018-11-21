@@ -81,6 +81,7 @@ public class FeedFragment extends Fragment {
     }
 
 
+
     public void onScroll(AbsListView view, int firstVisibleItem,int visibleItemCount, int totalItemCount) {
         // Toast.makeText(getApplicationContext(), "f:"+firstVisibleItem+",v:"+visibleItemCount+",t"+totalItemCount, 1).show();
         Log.i("msg", "f:"+firstVisibleItem+",v:"+visibleItemCount+",t"+totalItemCount);

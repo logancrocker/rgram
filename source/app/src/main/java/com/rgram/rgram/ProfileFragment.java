@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,7 +96,7 @@ public class ProfileFragment extends Fragment {
 
         //grab current user
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
-        String currUid = currUser.getUid();
+        final String currUid = currUser.getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
         ref.child(currUid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -126,38 +128,46 @@ public class ProfileFragment extends Fragment {
         iv = (ImageView) getView().findViewById(R.id.img_large);
         edit_profile.setText("Edit Profile");
 
-        //add all posts by current user to a list
-        final DatabaseReference posts = database.child("posts");
-        Query myposts = posts.orderByChild("uid").equalTo(currUid);
-        myposts.addListenerForSingleValueEvent(new ValueEventListener() {
+        //get reference to ourself
+        DatabaseReference meRef = FirebaseDatabase.getInstance().getReference()
+                                    .child("users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        meRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                    {
-                        Post curr = snapshot.getValue(Post.class);
-                        post_list.add(curr);
-                    }
-                    //set post number
-                    posts_num.setText(String.valueOf(post_list.size()));
-                    //set up grid view
-                    //int gridWidth = getResources().getDisplayMetrics().widthPixels;
-                    //int imgWidth = gridWidth / 3;
-                    //gridView.setColumnWidth(imgWidth);
-                    urls = new ArrayList<>();
-                    //Log.d("notebook", String.valueOf(post_list.size()));
-                    gridView.setAdapter(null);
-                    for (Post p : post_list)
-                    {
-                        //Log.d("notebook", p.getPath());
-                        storage.child(p.getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                final ArrayList<String> urls = new ArrayList<String>();
+
+                User myself = dataSnapshot.getValue(User.class);
+
+                if (myself.getFollowing() != null) { following_num.setText(String.valueOf(myself.getFollowing().size())); }
+                if (myself.getPosts() != null) { posts_num.setText(String.valueOf(myself.getPosts().size())); }
+                if (myself.getPosts() != null) {
+                    ArrayList<String> myPosts = myself.getPosts();
+                    //loop through all posts
+                    Collections.reverse(myPosts);
+                    for (String postID : myPosts) {
+                        //for each post ID, add its download url to the grid view
+                        //Log.d("notebook", postID);
+                        database.child("posts").child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onSuccess(Uri uri) {
-                                //Log.d("notebook", "success");
-                                urls.add(uri.toString());
-                                GridAdapter gridAdapter = new GridAdapter(getActivity(), urls);
-                                gridView.setAdapter(gridAdapter);
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Post currPost = dataSnapshot.getValue(Post.class);
+                                //Log.d("notebook", currPost.getImgDescription());
+                                //TODO try and display in the right order
+                                storage.child(currPost.getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Log.d("notebook", uri.toString());
+                                        urls.add(uri.toString());
+                                        GridAdapter gridAdapter = new GridAdapter(getContext(), urls);
+                                        gridView.setAdapter(gridAdapter);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
                             }
                         });
                     }
@@ -169,6 +179,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
 
         //initiate setting activity
         edit_profile.setOnClickListener(new View.OnClickListener() {

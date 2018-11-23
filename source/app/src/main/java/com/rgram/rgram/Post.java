@@ -39,7 +39,7 @@ public class Post
         this.path = path;
         this.imgDescription = imgDescription;
         this.uid = uid;
-        this.tags=tags;
+        this.tags = tags;
     }
 
     public Integer getLikes() { return likes; }

@@ -14,14 +14,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,9 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -43,9 +36,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -58,12 +48,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.zip.Inflater;
 
 public class PostFragment extends Fragment {
 
@@ -91,9 +76,7 @@ public class PostFragment extends Fragment {
     CheckBox checkBox12;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
-    StorageReference postRef;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public PostFragment() {
         // Required empty public constructor
@@ -356,19 +339,32 @@ public class PostFragment extends Fragment {
                                 DatabaseReference newpostRef = postsRef.push();
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                String id = newpostRef.getKey();
-                                newpostRef.setValue(new Post(0, postPath, postDesc, uid, tagsList));
+                                final String id = newpostRef.getKey();
+                                final Post newPost = new Post(0, postPath, postDesc, uid, tagsList);
+                                newpostRef.setValue(newPost);
                                 //now we want to update some properties about ourself
                                 //get a ref to ourself
                                 final DatabaseReference me = database.child("users").child(uid);
-                                //increment post_count
-                                me.child("post_count").addListenerForSingleValueEvent(new ValueEventListener() {
+                                me.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        Long count = (Long) dataSnapshot.getValue();
-                                        count++;
-                                        Log.d("notebook", String.valueOf(count));
-                                        dataSnapshot.getRef().setValue(count);
+                                        User myself = dataSnapshot.getValue(User.class);
+                                        //here we must add to the posts list
+                                        //list is null, so we must create it
+                                        ArrayList<String> newPosts = new ArrayList<String>();
+                                        if (myself.getPosts() == null)
+                                        {
+                                            newPosts.add(id);
+                                            myself.setPosts(newPosts);
+                                            me.setValue(myself);
+                                        }
+                                        else
+                                        {
+                                            newPosts = myself.getPosts();
+                                            newPosts.add(id);
+                                            myself.setPosts(newPosts);
+                                            me.setValue(myself);
+                                        }
                                     }
 
                                     @Override

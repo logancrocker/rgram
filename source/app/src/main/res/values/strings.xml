@@ -11,4 +11,6 @@
     <string name="no_storage_card">No storage card</string>
 
     <string name="not_enough_space">Not enough space</string>
+    <string name="Unfollow">Unfollow</string>
+    <string name="Follow">Follow</string>
 </resources>

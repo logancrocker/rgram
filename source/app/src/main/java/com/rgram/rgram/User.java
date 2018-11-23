@@ -1,19 +1,28 @@
 package com.rgram.rgram;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class User {
 
     public String userName;
     public String userDescription;
     public String userEmail;
     public String uid;
-    public Integer post_count;
+    public ArrayList<String> following;
+    public ArrayList<String> followers;
+    public ArrayList<String> posts;
+
 
     public User()
     {
+        this.uid = "";
         this.userName = "hello world";
         this.userEmail = "email@email.com";
         this.userDescription = "";
-        this.post_count = 0;
+        this.following = null;
+        this.followers = null;
+        this.posts = null;
     }
 
     public User(String username, String email, String uid)
@@ -22,7 +31,9 @@ public class User {
         this.userName = username;
         this.userEmail = email;
         this.userDescription = "";
-        this.post_count = 0;
+        this.following = null;
+        this.followers = null;
+        this.posts = null;
     }
 
     //uid
@@ -41,8 +52,15 @@ public class User {
     public String getUserEmail() { return userEmail; }
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
-    //postCount
-    public Integer getPost_count() { return post_count; }
-    public void setPost_count(Integer post_count) { this.post_count = post_count; }
-    public void incrementPost_count() { this.post_count += 1; }
+    //following
+    public ArrayList<String> getFollowing() { return following; }
+    public void setFollowing(ArrayList<String> following) { this.following = following; }
+
+    //followers
+    public ArrayList<String> getFollowers() { return followers; }
+    public void setFollowers(ArrayList<String> followers) { this.followers = followers; }
+
+    //posts
+    public ArrayList<String> getPosts() { return posts; }
+    public void setPosts(ArrayList<String> posts) { this.posts = posts; }
 }

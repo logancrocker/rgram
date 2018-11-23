@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,7 +72,7 @@ public class OtherFragment extends Fragment  {
             public void onClick(View v) {
                 //TODO search firebase database
                 queryText = searchbar.getText().toString();
-                DatabaseReference users = database.child("users");
+                final DatabaseReference users = database.child("users");
                 final Query searchedUser = users.orderByChild("userName").equalTo(queryText);
                 final ArrayList<User> result = new ArrayList<User>();
                 searchedUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,19 +91,86 @@ public class OtherFragment extends Fragment  {
                             card.setVisibility(View.VISIBLE);
                             //set post num
                             posts_num = getView().findViewById(R.id.posts_num_tv);
-                            posts_num.setText(result.get(0).getPost_count().toString());
+                            if (result.get(0).getPosts() != null) { posts_num.setText(String.valueOf(result.get(0).getPosts().size())); }
+                            else { posts_num.setText(String.valueOf(0)); }
+                            //set following num
+                            following_num = getView().findViewById(R.id.following_num_tv);
+                            if (result.get(0).getFollowing() != null) { following_num.setText(String.valueOf(result.get(0).getFollowing().size())); }
+                            else { following_num.setText(String.valueOf(0)); }
+                            //set name
                             name = getView().findViewById(R.id.display_name_tv);
                             name.setText(result.get(0).getUserName());
+                            //set description
                             description = getView().findViewById(R.id.description);
                             description.setText(result.get(0).getUserDescription());
-                            String myuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            //get our uid
+                            final String myuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            //hide follow button if the result is ourself
                             follow = getView().findViewById(R.id.follow_this_profile);
                             if (myuid.equals(result.get(0).getUid()))
                             {
                                 follow.setVisibility(View.INVISIBLE);
                             }
 
+                            //reference to ourself
+                            final DatabaseReference myselfRef = database.child("users").child(myuid);
+                            myselfRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    //get our user info
+                                    final User myself = dataSnapshot.getValue(User.class);
+                                    //if we follow the user, button must be gray and say unfollow
+                                    if (myself.getFollowing() != null && myself.getFollowing().contains(result.get(0).getUid()))
+                                    {
+                                        follow.setBackgroundColor(getResources().getColor(R.color.gray));
+                                        follow.setText(getResources().getString(R.string.Unfollow));
+                                    }
+                                    //if we dont follow them, show follow appearance
+                                    else
+                                    {
+                                        follow.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                        follow.setText(getResources().getString(R.string.Follow));
+                                    }
 
+                                    follow.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ArrayList<String> newFollowing = new ArrayList<String>();
+                                            //this click listener must perform based on whether we follow the user
+                                            //first check if we follow the user
+                                            //this case is for when we do not follow anyone
+                                            if (myself.getFollowing() == null)
+                                            {
+                                                newFollowing.add(result.get(0).getUid());
+                                                myself.setFollowing(newFollowing);
+                                                myselfRef.setValue(myself);
+                                            }
+                                            //we dont follow them, so we add them to the list
+                                            else if (!myself.getFollowing().contains(result.get(0).getUid()))
+                                            {
+                                                newFollowing = myself.getFollowing();
+                                                newFollowing.add(result.get(0).getUid());
+                                                myself.setFollowing(newFollowing);
+                                                myselfRef.setValue(myself);
+                                            }
+                                            //we do follow them, so remove from the list
+                                            else
+                                            {
+                                                newFollowing = myself.getFollowing();
+                                                newFollowing.remove(result.get(0).getUid());
+                                                myself.setFollowing(newFollowing);
+                                                myselfRef.setValue(myself);
+                                            }
+                                            //TODO we must add ourself to their list of followers
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                         else
                         {

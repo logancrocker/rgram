@@ -357,7 +357,6 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
-<<<<<<< HEAD
                                 newpostRef.setValue(new Post(0, postPath, postDesc, uid, tagsList));
                                 //now we want to update some properties about ourself
                                 //get a ref to ourself
@@ -377,7 +376,7 @@ public class PostFragment extends Fragment {
 
                                     }
                                 });
-                                
+
 
                                 newpostRef.setValue(new Post(0,
                                         postPath,

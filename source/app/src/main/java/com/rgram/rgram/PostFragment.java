@@ -72,6 +72,7 @@ public class PostFragment extends Fragment {
     public static final int REQUEST_CODE_TAKE_PICTURE = 0x2;
     public static final int REQUEST_CODE_CROP_IMAGE = 0x3;
     private File mFileTemp;
+    private int newitemnum;
     String TAG = "cropimage";
     ImageView image;
     String path;
@@ -123,13 +124,22 @@ public class PostFragment extends Fragment {
         }
         image = view.findViewById(R.id.image);
         Button fab = view.findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 GetCameraPermission();
             }
         });
+        Button post=view.findViewById(R.id.button2);
+        post.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                newitemnum=FeedFragment.getItemnum();
+                newitemnum++;
+                FeedFragment.setItemnum(newitemnum);
 
+            }
+        });
         return view;
     }
 
@@ -347,6 +357,7 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
+<<<<<<< HEAD
                                 newpostRef.setValue(new Post(0, postPath, postDesc, uid, tagsList));
                                 //now we want to update some properties about ourself
                                 //get a ref to ourself
@@ -366,6 +377,18 @@ public class PostFragment extends Fragment {
 
                                     }
                                 });
+                                
+
+                                newpostRef.setValue(new Post(0,
+                                        postPath,
+                                        postDesc, uid, tagsList));
+
+
+//                                newpostRef.setValue(new Post(0, postPath, postDesc, uid));
+//
+//                                newpostRef.setValue(new Post(0,
+//                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
+//                                        postDesc, uid,tagsList));
 
 
                                 //we want to go to the post page

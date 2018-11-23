@@ -74,8 +74,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                                                 //get current user
                                                 FirebaseUser currUser = firebaseAuth.getCurrentUser();
+                                                String uid = currUser.getUid();
                                                 //create new user with input data
-                                                User user = new User(inputName, inputEmail);
+                                                User user = new User(inputName, inputEmail, uid);
                                                 //write the user to the users tree under its uid
                                                 database.child("users").child(currUser.getUid()).setValue(user);
 

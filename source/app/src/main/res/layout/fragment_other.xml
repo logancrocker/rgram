@@ -1,16 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OtherFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColorHint="@color/colorPink"
-        android:textSize="36sp"
-        android:text="This is Other" />
+    <EditText
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="Search by username"
+        android:layout_gravity="top"
+        android:textSize="22dp"
+        android:layout_margin="5dp"
+        android:id="@+id/search_bar"
+        />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Search"
+        android:textColor="#fff"
+        android:layout_toRightOf="@id/search_bar"
+        android:layout_margin="5dp"
+        />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="4dp"
+        android:layout_below="@id/search_bar"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:id="@+id/upper_part_layout"
+            android:baselineAligned="false">
+
+
+            <!--Profile Image Layout -->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                tools:ignore="Suspicious0dp"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="25"
+                android:layout_marginTop="10dp">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/profile_image"
+                    android:src="@drawable/user"/>
+
+
+            </RelativeLayout>
+            <!-- End of Profile Image Layout-->
+
+
+            <!-- Posts & Followers Part Layout-->
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                tools:ignore="Suspicious0dp"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="75"
+                android:layout_marginRight="30dp">
+
+                <include layout="@layout/upperpart_file"/>
+            </RelativeLayout>
+
+
+
+            <!--End of Posts & Followrs Part Layout -->
+
+        </LinearLayout>
+        <!-- End of Upper Part-->
+
+
+        <!-- Middle Part Layout-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/middle_part_layout"
+            android:padding="10dp"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="120dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColorHint="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:id="@+id/display_name_tv"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColorHint="@color/colorBlack"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/description"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

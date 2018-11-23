@@ -146,14 +146,15 @@ public class ProfileFragment extends Fragment {
                     //int imgWidth = gridWidth / 3;
                     //gridView.setColumnWidth(imgWidth);
                     urls = new ArrayList<>();
-                    Log.d("notebook", String.valueOf(post_list.size()));
+                    //Log.d("notebook", String.valueOf(post_list.size()));
+                    gridView.setAdapter(null);
                     for (Post p : post_list)
                     {
-                        Log.d("notebook", p.getPath());
+                        //Log.d("notebook", p.getPath());
                         storage.child(p.getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Log.d("notebook", "success");
+                                //Log.d("notebook", "success");
                                 urls.add(uri.toString());
                                 GridAdapter gridAdapter = new GridAdapter(getActivity(), urls);
                                 gridView.setAdapter(gridAdapter);

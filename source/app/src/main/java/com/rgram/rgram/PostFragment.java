@@ -39,8 +39,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -341,12 +347,28 @@ public class PostFragment extends Fragment {
                                 //get current user id
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 String id = newpostRef.getKey();
-                                newpostRef.setValue(new Post(0,
-                                        postPath,
-                                        postDesc, uid, tagsList));
+                                newpostRef.setValue(new Post(0, postPath, postDesc, uid, tagsList));
+                                //now we want to update some properties about ourself
+                                //get a ref to ourself
+                                final DatabaseReference me = database.child("users").child(uid);
+                                //increment post_count
+                                me.child("post_count").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        Long count = (Long) dataSnapshot.getValue();
+                                        count++;
+                                        Log.d("notebook", String.valueOf(count));
+                                        dataSnapshot.getRef().setValue(count);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
 
                                 //we want to go to the post page
-                                //TODO uhhhhh
                                 Activity a = getActivity();
                                 a.finish();
                                 Intent intent = new Intent();

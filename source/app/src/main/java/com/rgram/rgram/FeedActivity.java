@@ -64,10 +64,10 @@ public class FeedActivity extends FragmentActivity {
 
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,
                 "feed"))//添加图标和文字
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "other1"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "search"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,"post"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "other2"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "profile"))
+                .addItem(new BottomNavigationItem(R.drawable.user, "profile"))
                 .initialise();
 
         //设置点击事件

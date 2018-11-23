@@ -34,7 +34,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\logan\Downloads\picture.png" />
+                                      <entry key="foregroundImage" value="C:\Users\logan\Downloads\search.png" />
                                       <entry key="foregroundLayerName" value="pic_missing" />
                                       <entry key="outputName" value="picture" />
                                     </map>
@@ -50,6 +50,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

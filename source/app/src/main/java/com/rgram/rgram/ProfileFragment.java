@@ -99,11 +99,11 @@ public class ProfileFragment extends Fragment {
         final String currUid = currUser.getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
-        ref.child(currUid).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(currUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final User user = dataSnapshot.getValue(User.class);
-                description.setText(myaccount.getUserDescription());
+                description.setText(user.getUserDescription());
                 display_name.setText(user.getUserName());
             }
 
@@ -152,7 +152,7 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Post currPost = dataSnapshot.getValue(Post.class);
-                                Log.d("notebook", currPost.getImgDescription());
+                                //Log.d("notebook", currPost.getImgDescription());
                                 //TODO try and display in the right order
                                 urls.add(currPost.getPath());
                                 GridAdapter gridAdapter = new GridAdapter(getContext(), urls);

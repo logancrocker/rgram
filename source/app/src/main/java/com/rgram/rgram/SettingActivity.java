@@ -7,10 +7,27 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -19,6 +36,15 @@ public class SettingActivity extends AppCompatActivity {
     TextView edit_image;
     final int CHANGE_PROFILE_IMAGE = 1;
     CircleImageView profile_image;
+    TextView submit;
+    TextView description;
+    TextView username;
+    String path;
+
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    String myuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +54,49 @@ public class SettingActivity extends AppCompatActivity {
 
         profile_image = findViewById(R.id.profile_image);
 
+        description = findViewById(R.id.desc_et);
+
+        username = findViewById(R.id.username_et);
+
+        submit = findViewById(R.id.done_edit);
+
         edit_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getNewProfileImage();
             }
         });
+
+        ref.child("users").child(myuid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final User me = dataSnapshot.getValue(User.class);
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Log.d("notebook", description.getText().toString());
+                        if (!description.getText().toString().isEmpty()) { me.setUserDescription(description.getText().toString()); }
+                        //dont want to set username if its null
+                        if (!username.getText().toString().isEmpty()) { me.setUserName(username.getText().toString()); }
+
+                        //TODO change profile pic
+
+                        //push our changes to database
+                        ref.child("users").child(myuid).setValue(me);
+
+                        finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
     }
 

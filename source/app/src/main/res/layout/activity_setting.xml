@@ -43,7 +43,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/edit_image"
             android:id="@+id/username_et"
-            android:hint="username"
+            android:hint="Username"
             android:textColor="@color/colorGray"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:id="@+id/desc_et"
-            android:hint="description"
+            android:hint="Description"
             android:textColor="@color/colorGray"
             android:textSize="16sp"
             android:layout_marginBottom="5dp"
@@ -65,32 +65,17 @@
             android:drawablePadding="5dp"
             />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/email_et"
-            android:hint="email"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="0dp"
-            android:layout_below="@+id/desc_et"
-            android:textColor="@color/colorGray"
-            android:textSize="16sp"
-            android:layout_marginBottom="5dp"
-            android:drawablePadding="5dp"
-            />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/email_et"
+            android:layout_below="@+id/username_et"
             android:background="@color/colorPrimary"
             android:text="Done"
             android:layout_centerHorizontal="true"
             android:textSize="18sp"
             android:padding="5dp"
             android:gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="70dp"
             android:textColor="@color/colorBlack"
 
             android:id="@+id/done_edit"

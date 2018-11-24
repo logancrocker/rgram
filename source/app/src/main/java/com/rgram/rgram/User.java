@@ -9,6 +9,7 @@ public class User {
     public String userDescription;
     public String userEmail;
     public String uid;
+    public String picture;
     public ArrayList<String> following;
     public ArrayList<String> followers;
     public ArrayList<String> posts;
@@ -20,6 +21,7 @@ public class User {
         this.userName = "hello world";
         this.userEmail = "email@email.com";
         this.userDescription = "";
+        this.picture = "";
         this.following = null;
         this.followers = null;
         this.posts = null;
@@ -31,10 +33,15 @@ public class User {
         this.userName = username;
         this.userEmail = email;
         this.userDescription = "";
+        this.picture = "";
         this.following = null;
         this.followers = null;
         this.posts = null;
     }
+
+    //picture path
+    public void setPicture(String picture) { this.picture = picture; }
+    public String getPicture() { return picture; }
 
     //uid
     public String getUid() { return uid; }

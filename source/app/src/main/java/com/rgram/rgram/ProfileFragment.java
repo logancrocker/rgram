@@ -49,30 +49,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ProfileFragment extends Fragment {
 
-
-    private android.support.v4.app.FragmentManager manager;
-    private FragmentTransaction ft;
     //database instance
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    StorageReference storage = FirebaseStorage.getInstance().getReference();
 
-    private List<Post> post_list;
-    private List<Image> image_list;
-
-    User myaccount = new User();
     TextView edit_profile, posts_num, following_num, followers_num, display_name, description;
     CircleImageView user_profile_image;
     GridView gridView;
-
-    private List<Map<String, Object>> datalist;
-    SimpleAdapter simadapter;
-
-    public ImageView iv;
-    int[] imgs = new int[6];
-    ArrayList<String> urls;
-
-    int user_id, posts, following, followers;
-    String email, image;
+    ImageView iv;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -91,8 +74,6 @@ public class ProfileFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        post_list = new ArrayList<>();
 
         //grab current user
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -145,7 +126,8 @@ public class ProfileFragment extends Fragment {
 
                 if (myself.getFollowing() != null) { following_num.setText(String.valueOf(myself.getFollowing().size())); }
                 if (myself.getPosts() != null) { posts_num.setText(String.valueOf(myself.getPosts().size())); }
-                if (myself.getPosts() != null) {
+                if (myself.getPosts() != null)
+                {
                     ArrayList<String> myPosts = myself.getPosts();
                     //loop through all posts
                     Collections.reverse(myPosts);

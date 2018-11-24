@@ -43,9 +43,8 @@
         <activity android:name=".CropImage.CropImage" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".FeedActivity" />
-        <activity android:name=".SettingActivity">
-
-        </activity>
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".ViewProfileActivity" />
         <provider
             android:name="com.rgram.rgram.CropImage.InternalStorageContentProvider"
             android:authorities="com.rgram.rgram.cropimages.CameraActivity"

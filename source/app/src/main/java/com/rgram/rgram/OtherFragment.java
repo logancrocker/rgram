@@ -1,6 +1,7 @@
 package com.rgram.rgram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -24,10 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class OtherFragment extends Fragment  {
@@ -43,6 +47,8 @@ public class OtherFragment extends Fragment  {
     TextView name;
     TextView description;
     TextView follow;
+    Button visit_profile;
+    CircleImageView profile_image;
 
     public OtherFragment() {
         // Required empty public constructor
@@ -66,31 +72,45 @@ public class OtherFragment extends Fragment  {
         searchbutton = getView().findViewById(R.id.search_button);
         card = getView().findViewById(R.id.cardview);
         card.setVisibility(View.INVISIBLE);
+        visit_profile = getView().findViewById(R.id.visit_profile);
+        visit_profile.setVisibility(View.INVISIBLE);
+        profile_image = getView().findViewById(R.id.profile_image);
+
+        final ArrayList<User> result = new ArrayList<>();
 
         searchbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO search firebase database
                 queryText = searchbar.getText().toString();
                 final DatabaseReference users = database.child("users");
-                final Query searchedUser = users.orderByChild("userName").equalTo(queryText);
-                final ArrayList<User> result = new ArrayList<User>();
-                searchedUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                Query searchedUser = users.orderByChild("userName").equalTo(queryText);
+                searchedUser.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists())
                         {
-                            //Log.d("notebook", "found user");
                             //add the result user to the arraylist
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                            //this is redundant but oh well
+                            result.clear();
+                            for (DataSnapshot d : dataSnapshot.getChildren())
                             {
-                                User curr = snapshot.getValue(User.class);
+                                User curr = d.getValue(User.class);
+                                Log.d("notebook", curr.getUserName());
                                 result.add(curr);
                             }
                             //TODO here we need to display the info of the resulting user
+                            //load profile picture
+                            profile_image.setImageResource(R.drawable.user);
+                            if (!result.get(0).getPicture().isEmpty())
+                            {
+                                Picasso.get().load(result.get(0).getPicture()).fit().centerCrop().into(profile_image);
+                            }
+                            //show the card and visit button
                             card.setVisibility(View.VISIBLE);
+                            visit_profile.setVisibility(View.VISIBLE);
                             //set post num
                             posts_num = getView().findViewById(R.id.posts_num_tv);
+                            //Log.d("notebook", String.valueOf(result.get(0).getPosts().size()));
                             if (result.get(0).getPosts() != null) { posts_num.setText(String.valueOf(result.get(0).getPosts().size())); }
                             else { posts_num.setText(String.valueOf(0)); }
                             //set following num
@@ -113,7 +133,8 @@ public class OtherFragment extends Fragment  {
                             }
 
                             //reference to ourself
-                            final DatabaseReference myselfRef = database.child("users").child(myuid);
+                            //this decides how to present the follow button
+                            final DatabaseReference myselfRef = database.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             myselfRef.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -183,6 +204,16 @@ public class OtherFragment extends Fragment  {
 
                     }
                 });
+            }
+        });
+
+        visit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //we will pass the uid to the new activity so we can populate the profile page
+                Intent newIntent = new Intent(getContext(), ViewProfileActivity.class);
+                newIntent.putExtra("uid", result.get(0).getUid());
+                startActivity(newIntent);
             }
         });
     }

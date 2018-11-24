@@ -1,11 +1,15 @@
 package com.rgram.rgram;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -13,15 +17,31 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends FragmentActivity {
+public class FeedActivity extends AppCompatActivity {
     public ViewPager vp;
     private BottomNavigationBar mBottomNavigationBar;
     List<Fragment> list=new ArrayList<>();
     String[] titles={"feed","other1","other2","post","profile"};
+
+    //need to inflate the toolbar menu options
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
+        //TODO set the toolbar
+        Toolbar toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //set title
         setTitle("Feed");

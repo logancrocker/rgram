@@ -59,6 +59,11 @@ public class ViewProfileActivity extends AppCompatActivity {
         gridView = findViewById(R.id.images_grid_layout);
         iv = findViewById(R.id.img_large);
 
+        if (uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+        {
+            follow.setVisibility(View.INVISIBLE);
+        }
+
         //setting basic info
         ref.child(uid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,33 +152,36 @@ public class ViewProfileActivity extends AppCompatActivity {
                             follow.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    ArrayList<String> newFollowing = new ArrayList<String>();
-                                    //this click listener must perform based on whether we follow the user
-                                    //first check if we follow the user
-                                    //this case is for when we do not follow anyone
-                                    if (myself.getFollowing() == null)
+                                    if (!uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                                     {
-                                        newFollowing.add(uid);
-                                        myself.setFollowing(newFollowing);
-                                        myselfRef.setValue(myself);
+                                        ArrayList<String> newFollowing = new ArrayList<String>();
+                                        //this click listener must perform based on whether we follow the user
+                                        //first check if we follow the user
+                                        //this case is for when we do not follow anyone
+                                        if (myself.getFollowing() == null)
+                                        {
+                                            newFollowing.add(uid);
+                                            myself.setFollowing(newFollowing);
+                                            myselfRef.setValue(myself);
+                                        }
+                                        //we dont follow them, so we add them to the list
+                                        else if (!myself.getFollowing().contains(uid))
+                                        {
+                                            newFollowing = myself.getFollowing();
+                                            newFollowing.add(uid);
+                                            myself.setFollowing(newFollowing);
+                                            myselfRef.setValue(myself);
+                                        }
+                                        //we do follow them, so remove from the list
+                                        else
+                                        {
+                                            newFollowing = myself.getFollowing();
+                                            newFollowing.remove(uid);
+                                            myself.setFollowing(newFollowing);
+                                            myselfRef.setValue(myself);
+                                        }
+                                        //TODO we must add ourself to their list of followers
                                     }
-                                    //we dont follow them, so we add them to the list
-                                    else if (!myself.getFollowing().contains(uid))
-                                    {
-                                        newFollowing = myself.getFollowing();
-                                        newFollowing.add(uid);
-                                        myself.setFollowing(newFollowing);
-                                        myselfRef.setValue(myself);
-                                    }
-                                    //we do follow them, so remove from the list
-                                    else
-                                    {
-                                        newFollowing = myself.getFollowing();
-                                        newFollowing.remove(uid);
-                                        myself.setFollowing(newFollowing);
-                                        myselfRef.setValue(myself);
-                                    }
-                                    //TODO we must add ourself to their list of followers
                                 }
                             });
                         }

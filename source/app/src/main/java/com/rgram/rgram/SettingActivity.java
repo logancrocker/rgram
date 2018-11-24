@@ -84,30 +84,37 @@ public class SettingActivity extends AppCompatActivity {
 
                         //TODO change profile pic
                         //Log.d("notebook", uri.toString());
-                        String path = "avatars/" + System.currentTimeMillis() + ".jpg";
-                        final StorageReference profRef = storageReference.child(path);
-                        UploadTask uploadTask = profRef.putFile(uri);
+                        //only push the picture if its not null
+                        if (uri != null)
+                        {
+                            String path = "avatars/" + System.currentTimeMillis() + ".jpg";
+                            final StorageReference profRef = storageReference.child(path);
+                            UploadTask uploadTask = profRef.putFile(uri);
 
-                        uploadTask.addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("notebook", "failed");
-                            }
-                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                //Log.d("notebook", "success");
-                                profRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        me.setPicture(uri.toString());
-                                        //push our changes to database
-                                        ref.child("users").child(myuid).setValue(me);
-                                    }
-                                });
-                            }
-                        });
-
+                            uploadTask.addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("notebook", "failed");
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    //Log.d("notebook", "success");
+                                    profRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            me.setPicture(uri.toString());
+                                            //push our changes to database
+                                            ref.child("users").child(myuid).setValue(me);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        else
+                        {
+                            ref.child("users").child(myuid).setValue(me);
+                        }
                         finish();
                     }
                 });

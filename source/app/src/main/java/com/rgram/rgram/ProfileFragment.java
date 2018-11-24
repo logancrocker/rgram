@@ -83,12 +83,16 @@ public class ProfileFragment extends Fragment {
         ref.child(currUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final User user = dataSnapshot.getValue(User.class);
-                description.setText(user.getUserDescription());
-                display_name.setText(user.getUserName());
-                if (!user.getPicture().isEmpty())
+                if (dataSnapshot.exists())
                 {
-                    Picasso.get().load(user.getPicture()).fit().centerCrop().into(user_profile_image);
+                    final User user = dataSnapshot.getValue(User.class);
+                    Log.d("notebook", user.getUserName());
+                    description.setText(user.getUserDescription());
+                    display_name.setText(user.getUserName());
+                    if (!user.getPicture().isEmpty())
+                    {
+                        Picasso.get().load(user.getPicture()).fit().centerCrop().into(user_profile_image);
+                    }
                 }
             }
 

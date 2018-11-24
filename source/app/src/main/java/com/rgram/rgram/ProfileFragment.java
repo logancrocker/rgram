@@ -105,6 +105,10 @@ public class ProfileFragment extends Fragment {
                 final User user = dataSnapshot.getValue(User.class);
                 description.setText(user.getUserDescription());
                 display_name.setText(user.getUserName());
+                if (!user.getPicture().isEmpty())
+                {
+                    Picasso.get().load(user.getPicture()).fit().centerCrop().into(user_profile_image);
+                }
             }
 
             @Override

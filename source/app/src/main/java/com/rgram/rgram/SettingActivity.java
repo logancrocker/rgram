@@ -40,6 +40,8 @@ public class SettingActivity extends AppCompatActivity {
     TextView description;
     TextView username;
     String path;
+    Uri uri;
+    Bitmap bitmap;
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -81,9 +83,30 @@ public class SettingActivity extends AppCompatActivity {
                         if (!username.getText().toString().isEmpty()) { me.setUserName(username.getText().toString()); }
 
                         //TODO change profile pic
+                        //Log.d("notebook", uri.toString());
+                        String path = "avatars/" + System.currentTimeMillis() + ".jpg";
+                        final StorageReference profRef = storageReference.child(path);
+                        UploadTask uploadTask = profRef.putFile(uri);
 
-                        //push our changes to database
-                        ref.child("users").child(myuid).setValue(me);
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("notebook", "failed");
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Log.d("notebook", "success");
+                                profRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        me.setPicture(uri.toString());
+                                        //push our changes to database
+                                        ref.child("users").child(myuid).setValue(me);
+                                    }
+                                });
+                            }
+                        });
 
                         finish();
                     }
@@ -118,10 +141,10 @@ public class SettingActivity extends AppCompatActivity {
         if (requestCode == CHANGE_PROFILE_IMAGE) {
 
             if (resultCode == RESULT_OK) {
-                Uri uri = data.getData();
+                uri = data.getData();
 
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
                     Drawable drawable = new BitmapDrawable(bitmap);// 转换成drawable
                     profile_image.setImageDrawable(drawable);
 

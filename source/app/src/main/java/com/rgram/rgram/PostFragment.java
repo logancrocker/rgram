@@ -320,7 +320,7 @@ public class PostFragment extends Fragment {
                         //get reference to image storage
                         //we create a unique file name, using the current time and retain the file extension
                         final String postPath = "images/"+System.currentTimeMillis()+path.substring(path.lastIndexOf("."));
-                        StorageReference postRef = storageRef.child(postPath);
+                        final StorageReference postRef = storageRef.child(postPath);
                         //upload image
                         UploadTask uploadTask = postRef.putFile(file);
 
@@ -334,57 +334,55 @@ public class PostFragment extends Fragment {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                                 EditText desc = view.findViewById(R.id.textView2);
-                                String postDesc = desc.getText().toString();
+                                final String postDesc = desc.getText().toString();
                                 DatabaseReference postsRef = database.child("posts");
-                                DatabaseReference newpostRef = postsRef.push();
+                                final DatabaseReference newpostRef = postsRef.push();
                                 //get current user id
-                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 final String id = newpostRef.getKey();
-                                final Post newPost = new Post(0, postPath, postDesc, uid, tagsList);
-                                newpostRef.setValue(newPost);
-                                //now we want to update some properties about ourself
-                                //get a ref to ourself
-                                final DatabaseReference me = database.child("users").child(uid);
-                                me.addListenerForSingleValueEvent(new ValueEventListener() {
+                                postRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        User myself = dataSnapshot.getValue(User.class);
-                                        //here we must add to the posts list
-                                        //list is null, so we must create it
-                                        ArrayList<String> newPosts = new ArrayList<String>();
-                                        if (myself.getPosts() == null)
-                                        {
-                                            newPosts.add(id);
-                                            myself.setPosts(newPosts);
-                                            me.setValue(myself);
-                                        }
-                                        else
-                                        {
-                                            newPosts = myself.getPosts();
-                                            newPosts.add(id);
-                                            myself.setPosts(newPosts);
-                                            me.setValue(myself);
-                                        }
-                                    }
+                                    public void onSuccess(Uri uri) {
+                                        final Post newPost = new Post(0, uri.toString(), postDesc, uid, tagsList);
+                                        newpostRef.setValue(newPost);
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        //now we want to update some properties about ourself
+                                        //get a ref to ourself
+                                        final DatabaseReference me = database.child("users").child(uid);
+                                        me.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                User myself = dataSnapshot.getValue(User.class);
+                                                //here we must add to the posts list
+                                                //list is null, so we must create it
+                                                ArrayList<String> newPosts = new ArrayList<String>();
+                                                if (myself.getPosts() == null)
+                                                {
+                                                    newPosts.add(id);
+                                                    myself.setPosts(newPosts);
+                                                    me.setValue(myself);
+                                                }
+                                                else
+                                                {
+                                                    newPosts = myself.getPosts();
+                                                    newPosts.add(id);
+                                                    myself.setPosts(newPosts);
+                                                    me.setValue(myself);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
 
                                     }
                                 });
 
-
-                                newpostRef.setValue(new Post(0,
+                                /*newpostRef.setValue(new Post(0,
                                         postPath,
-                                        postDesc, uid, tagsList));
-
-
-//                                newpostRef.setValue(new Post(0, postPath, postDesc, uid));
-//
-//                                newpostRef.setValue(new Post(0,
-//                                        "images/"+id+file.getPath().substring(file.getPath().lastIndexOf(".")),
-//                                        postDesc, uid,tagsList));
-
+                                        postDesc, uid, tagsList));*/
 
                                 //we want to go to the post page
                                 Activity a = getActivity();

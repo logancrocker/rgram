@@ -152,17 +152,12 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Post currPost = dataSnapshot.getValue(Post.class);
-                                //Log.d("notebook", currPost.getImgDescription());
+                                Log.d("notebook", currPost.getImgDescription());
                                 //TODO try and display in the right order
-                                storage.child(currPost.getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        Log.d("notebook", uri.toString());
-                                        urls.add(uri.toString());
-                                        GridAdapter gridAdapter = new GridAdapter(getContext(), urls);
-                                        gridView.setAdapter(gridAdapter);
-                                    }
-                                });
+                                urls.add(currPost.getPath());
+                                GridAdapter gridAdapter = new GridAdapter(getContext(), urls);
+                                gridView.setAdapter(gridAdapter);
+
                             }
 
                             @Override

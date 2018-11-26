@@ -192,7 +192,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                 .child(uid);
 
         //set numbers and display posts
-        meRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        meRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final ArrayList<String> urls = new ArrayList<String>();
@@ -201,8 +201,11 @@ public class ViewProfileActivity extends AppCompatActivity {
 
                 //set number values
                 if (myself.getFollowing() != null) { following_num.setText(String.valueOf(myself.getFollowing().size())); }
+                else { following_num.setText(String.valueOf(0)); }
                 if (myself.getFollowers() != null) { followers_num.setText(String.valueOf(myself.getFollowers().size())); }
+                else { followers_num.setText(String.valueOf(0)); }
                 if (myself.getPosts() != null) { posts_num.setText(String.valueOf(myself.getPosts().size())); }
+                else { posts_num.setText(String.valueOf(0)); }
                 //display posts
                 if (myself.getPosts() != null)
                 {

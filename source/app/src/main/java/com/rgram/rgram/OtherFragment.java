@@ -95,7 +95,6 @@ public class OtherFragment extends Fragment  {
                             for (DataSnapshot d : dataSnapshot.getChildren())
                             {
                                 User curr = d.getValue(User.class);
-                                Log.d("notebook", curr.getUserName());
                                 result.add(curr);
                             }
                             //TODO here we need to display the info of the resulting user
@@ -127,6 +126,7 @@ public class OtherFragment extends Fragment  {
                             final String myuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             //hide follow button if the result is ourself
                             follow = getView().findViewById(R.id.follow_this_profile);
+                            follow.setVisibility(View.VISIBLE);
                             if (myuid.equals(result.get(0).getUid()))
                             {
                                 follow.setVisibility(View.INVISIBLE);
@@ -183,6 +183,8 @@ public class OtherFragment extends Fragment  {
                                                 myselfRef.setValue(myself);
                                             }
                                             //TODO we must add ourself to their list of followers
+                                            //get reference to other person
+                                            Log.d("notebook", result.get(0).getUid());
                                         }
                                     });
                                 }

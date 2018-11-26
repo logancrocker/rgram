@@ -116,6 +116,10 @@ public class OtherFragment extends Fragment  {
                             following_num = getView().findViewById(R.id.following_num_tv);
                             if (result.get(0).getFollowing() != null) { following_num.setText(String.valueOf(result.get(0).getFollowing().size())); }
                             else { following_num.setText(String.valueOf(0)); }
+                            //set followers num
+                            followers_num = getView().findViewById(R.id.followers_num_tv);
+                            if (result.get(0).getFollowers() != null) { followers_num.setText(String.valueOf(result.get(0).getFollowers().size())); }
+                            else { followers_num.setText(String.valueOf(0)); }
                             //set name
                             name = getView().findViewById(R.id.display_name_tv);
                             name.setText(result.get(0).getUserName());
@@ -184,7 +188,43 @@ public class OtherFragment extends Fragment  {
                                             }
                                             //TODO we must add ourself to their list of followers
                                             //get reference to other person
-                                            Log.d("notebook", result.get(0).getUid());
+                                            //need to modify their list of followers now
+                                            final DatabaseReference them = database.child("users").child(result.get(0).getUid());
+                                            them.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    User u = dataSnapshot.getValue(User.class);
+                                                    ArrayList<String> newFollowers = new ArrayList<String>();
+                                                    //they have no followers, so create a list and add ourself
+                                                    if (u.getFollowers() == null)
+                                                    {
+                                                        newFollowers.add(myuid);
+                                                        u.setFollowers(newFollowers);
+                                                        them.setValue(u);
+                                                    }
+                                                    //they have followers already, so just add ourself
+                                                    else if (!u.getFollowers().contains(myuid))
+                                                    {
+                                                        newFollowers = u.getFollowers();
+                                                        newFollowers.add(myuid);
+                                                        u.setFollowers(newFollowers);
+                                                        them.setValue(u);
+                                                    }
+                                                    //we already follow them, so remove ourself from their list
+                                                    else
+                                                    {
+                                                        newFollowers = u.getFollowers();
+                                                        newFollowers.remove(myuid);
+                                                        u.setFollowers(newFollowers);
+                                                        them.setValue(u);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
                                         }
                                     });
                                 }

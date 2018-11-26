@@ -86,7 +86,6 @@ public class ProfileFragment extends Fragment {
                 if (dataSnapshot.exists())
                 {
                     final User user = dataSnapshot.getValue(User.class);
-                    Log.d("notebook", user.getUserName());
                     description.setText(user.getUserDescription());
                     display_name.setText(user.getUserName());
                     if (!user.getPicture().isEmpty())

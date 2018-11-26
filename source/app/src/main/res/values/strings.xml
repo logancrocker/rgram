@@ -13,4 +13,14 @@
     <string name="not_enough_space">Not enough space</string>
     <string name="Unfollow">Unfollow</string>
     <string name="Follow">Follow</string>
+
+    <string-array name="tag_array">
+        <item>Food</item>
+        <item>Sports</item>
+        <item>Animals</item>
+        <item>Travel</item>
+        <item>News</item>
+        <item>Entertainment</item>
+    </string-array>
+
 </resources>

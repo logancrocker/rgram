@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -86,18 +87,12 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_post, container, false);
-        checkBox1=view.findViewById(R.id.checkBox1);
-        checkBox2=view.findViewById(R.id.checkBox2);
-        checkBox3=view.findViewById(R.id.checkBox3);
-        checkBox4=view.findViewById(R.id.checkBox4);
-        checkBox5=view.findViewById(R.id.checkBox5);
-        checkBox6=view.findViewById(R.id.checkBox6);
-        checkBox7=view.findViewById(R.id.checkBox7);
-        checkBox8=view.findViewById(R.id.checkBox8);
-        checkBox9=view.findViewById(R.id.checkBox9);
-        checkBox10=view.findViewById(R.id.checkBox10);
-        checkBox11=view.findViewById(R.id.checkBox11);
-        checkBox12=view.findViewById(R.id.checkBox12);
+        checkBox1=view.findViewById(R.id.Food);
+        checkBox2=view.findViewById(R.id.Sports);
+        checkBox3=view.findViewById(R.id.Animals);
+        checkBox4=view.findViewById(R.id.Travel);
+        checkBox5=view.findViewById(R.id.News);
+        checkBox6=view.findViewById(R.id.Entertainment);
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
@@ -265,7 +260,7 @@ public class PostFragment extends Fragment {
                     public void onClick(View v) {
                         //show what tags are selected
                         String result="selected tags:";
-                        final ArrayList tagsList = new ArrayList<String>();
+                        final ArrayList<String> tagsList = new ArrayList<String>();
                         if(checkBox1.isChecked()){
                             result+=" "+checkBox1.getText().toString();
                             tagsList.add(checkBox1.getText().toString());
@@ -289,30 +284,6 @@ public class PostFragment extends Fragment {
                         if(checkBox6.isChecked()){
                             result+=" "+checkBox6.getText().toString();
                             tagsList.add(checkBox6.getText().toString());
-                        }
-                        if(checkBox7.isChecked()){
-                            result+=" "+checkBox7.getText().toString();
-                            tagsList.add(checkBox7.getText().toString());
-                        }
-                        if(checkBox8.isChecked()){
-                            result+=" "+checkBox8.getText().toString();
-                            tagsList.add(checkBox8.getText().toString());
-                        }
-                        if(checkBox9.isChecked()){
-                            result+=" "+checkBox9.getText().toString();
-                            tagsList.add(checkBox9.getText().toString());
-                        }
-                        if(checkBox10.isChecked()){
-                            result+=" "+checkBox10.getText().toString();
-                            tagsList.add(checkBox10.getText().toString());
-                        }
-                        if(checkBox11.isChecked()){
-                            result+=" "+checkBox11.getText().toString();
-                            tagsList.add(checkBox11.getText().toString());
-                        }
-                        if(checkBox12.isChecked()){
-                            result+=" "+checkBox12.getText().toString();
-                            tagsList.add(checkBox12.getText().toString());
                         }
                         Toast.makeText(view.getContext(),result,Toast.LENGTH_LONG).show();
                         //create URI for image
@@ -346,6 +317,13 @@ public class PostFragment extends Fragment {
                                         final Post newPost = new Post(0, uri.toString(), postDesc, uid, tagsList);
                                         newpostRef.setValue(newPost);
 
+                                        //push the post to each tag feed
+                                        for (String tag : tagsList)
+                                        {
+                                            DatabaseReference tagRef = database.child("tags").child(tag).child(id);
+                                            tagRef.setValue(newPost);
+                                        }
+
                                         //now we want to update some properties about ourself
                                         //get a ref to ourself
                                         final DatabaseReference me = database.child("users").child(uid);
@@ -368,6 +346,15 @@ public class PostFragment extends Fragment {
                                                     newPosts.add(id);
                                                     myself.setPosts(newPosts);
                                                     me.setValue(myself);
+                                                }
+
+                                                if (myself.getFollowers() != null)
+                                                {
+                                                    for (String follower : myself.getFollowers())
+                                                    {
+                                                        DatabaseReference feedRef = database.child("feeds").child(follower).child(id);
+                                                        feedRef.setValue(newPost);
+                                                    }
                                                 }
                                             }
 

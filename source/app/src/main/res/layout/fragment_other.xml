@@ -11,9 +11,6 @@
         android:hint="Search by username"
         android:layout_gravity="top"
         android:textSize="22dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:id="@+id/search_bar"
         />
 
@@ -25,9 +22,6 @@
         android:text="Search"
         android:textColor="#fff"
         android:layout_toRightOf="@id/search_bar"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         />
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"

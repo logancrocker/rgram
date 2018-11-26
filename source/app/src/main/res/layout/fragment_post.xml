@@ -24,14 +24,16 @@
         android:layout_width="wrap_content"
         android:id="@+id/fab"
         android:layout_gravity="center_horizontal"
+        android:textColor="#fff"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Add an Image" />
+        android:text="Add"
+        android:background="@color/colorPrimary" />
     <EditText
         android:id="@+id/textView2"
         android:layout_width="356dp"
         android:layout_height="wrap_content"
-        android:hint="description" />
+        android:hint="Add a description" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -43,23 +45,23 @@
             android:layout_height="match_parent">
 
             <CheckBox
-                android:id="@+id/checkBox1"
+                android:id="@+id/Food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tag1"
+                android:text="Food"
                 />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/Sports"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tag2" />
+                android:text="Sports" />
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/Animals"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tag3" />
+                android:text="Animals" />
 
         </TableRow>
 
@@ -68,68 +70,22 @@
             android:layout_height="match_parent">
 
             <CheckBox
-                android:id="@+id/checkBox4"
+                android:id="@+id/Travel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tag4" />
+                android:text="Travel" />
 
             <CheckBox
-                android:id="@+id/checkBox5"
+                android:id="@+id/News"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tag5" />
+                android:text="News" />
 
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/Entertainment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tag6" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <CheckBox
-                android:id="@+id/checkBox7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tag7" />
-
-            <CheckBox
-                android:id="@+id/checkBox8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tag8" />
-
-            <CheckBox
-                android:id="@+id/checkBox9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tag9" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <CheckBox
-                android:id="@+id/checkBox10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tag10" />
-
-            <CheckBox
-                android:id="@+id/checkBox11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tag11" />
-
-            <CheckBox
-                android:id="@+id/checkBox12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tag12" />
+                android:text="Entertainment" />
         </TableRow>
     </TableLayout>
 
@@ -144,6 +100,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="49dp"
         android:text="post"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

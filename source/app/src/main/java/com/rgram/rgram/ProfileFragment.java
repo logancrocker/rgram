@@ -142,7 +142,6 @@ public class ProfileFragment extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Post currPost = dataSnapshot.getValue(Post.class);
                                 //Log.d("notebook", currPost.getImgDescription());
-                                //TODO try and display in the right order
                                 urls.add(currPost.getPath());
                                 GridAdapter gridAdapter = new GridAdapter(getContext(), urls);
                                 gridView.setAdapter(gridAdapter);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -101,6 +103,81 @@ public class DiscoverAdapter extends BaseAdapter {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        //like listener
+        final DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("likes/" + p.getPostID());
+        //set like count
+        likeRef.addValueEventListener(new ValueEventListener() {
+            final ArrayList<String> likes = new ArrayList<String>();
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                {
+                    likes.clear();
+                    for (DataSnapshot d : dataSnapshot.getChildren())
+                    {
+                        likes.add(d.getValue(String.class));
+                    }
+                    //set like number
+                    holder.likeCount.setText(String.valueOf(likes.size()));
+                }
+                else
+                {
+                    //set likes to zero
+                    holder.likeCount.setText(String.valueOf(0));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //like button functionality
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ArrayList<String> likes = new ArrayList<String>();
+                likeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                        {
+                            for (DataSnapshot d : dataSnapshot.getChildren())
+                            {
+                                likes.add(d.getValue(String.class));
+                            }
+                            //set like number
+                            holder.likeCount.setText(String.valueOf(likes.size()));
+                            //we have liked the post, so we must unlike it
+                            if (likes.contains(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                            {
+                                likes.remove(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                likeRef.setValue(likes);
+                            }
+                            //we have not liked it, so we must
+                            else
+                            {
+                                likes.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                likeRef.setValue(likes);
+                            }
+                        }
+                        else
+                        {
+                            //set likes to zero
+                            holder.likeCount.setText(String.valueOf(0));
+                            likes.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            likeRef.setValue(likes);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 

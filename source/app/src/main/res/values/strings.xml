@@ -14,6 +14,8 @@
     <string name="Unfollow">Unfollow</string>
     <string name="Follow">Follow</string>
 
+    <string name="tag_prompt">Choose a tag</string>
+
     <string-array name="tag_array">
         <item>Food</item>
         <item>Sports</item>

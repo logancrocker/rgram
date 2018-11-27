@@ -70,7 +70,7 @@ public class FeedActivity extends AppCompatActivity {
         list.add(new FeedFragment());
         list.add(new OtherFragment());
         list.add(new PostFragment());
-        list.add(new OtherFragment());
+        list.add(new DiscoverFragment());
         list.add(new ProfileFragment());
         vp.setAdapter(new FeedAdapter(getSupportFragmentManager(),list));
 
@@ -105,7 +105,7 @@ public class FeedActivity extends AppCompatActivity {
                 "feed"))//添加图标和文字
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "search"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,"post"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "other2"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "discover"))
                 .addItem(new BottomNavigationItem(R.drawable.user, "profile"))
                 .initialise();
 

@@ -3,4 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/tag_array"
+        android:prompt="@string/tag_prompt"
+        android:spinnerMode="dropdown"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="20dp"
+        android:layout_toRightOf="@id/spinner1"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@id/spinner1">
+
+    </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>

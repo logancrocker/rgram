@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,11 +22,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DiscoverFragment extends Fragment {
 
     private Spinner spinner;
     private Button submit;
+    private ListView listView;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     public DiscoverFragment() {
@@ -45,6 +48,7 @@ public class DiscoverFragment extends Fragment {
 
         spinner = getView().findViewById(R.id.spinner1);
         submit = getView().findViewById(R.id.btnSubmit);
+        listView = getView().findViewById(R.id.discoverView);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.tag_array, R.layout.dropdown_item);
         adapter.setDropDownViewResource(R.layout.dropdown_item);
@@ -52,6 +56,8 @@ public class DiscoverFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //clear listview
+                listView.setAdapter(null);
                 //get all posts with this tag from database
                 DatabaseReference tagRef = databaseReference.child("tags").child(spinner.getSelectedItem().toString());
                 tagRef.addValueEventListener(new ValueEventListener() {
@@ -66,6 +72,10 @@ public class DiscoverFragment extends Fragment {
                                 posts.add(p);
                             }
                             //TODO first lets try displaying the images only
+                            //reverse list (chronological order)
+                            Collections.reverse(posts);
+                            DiscoverAdapter discoverAdapter = new DiscoverAdapter(getContext(), posts);
+                            listView.setAdapter(discoverAdapter);
                         }
                     }
 

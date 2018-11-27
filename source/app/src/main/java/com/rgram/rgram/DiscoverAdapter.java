@@ -3,11 +3,14 @@ package com.rgram.rgram;
 import android.app.Activity;
 import android.content.Context;
 import android.provider.ContactsContract;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -122,9 +125,9 @@ public class DiscoverAdapter extends BaseAdapter {
             final ArrayList<String> likes = new ArrayList<String>();
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                likes.clear();
                 if (dataSnapshot.exists())
                 {
-                    likes.clear();
                     for (DataSnapshot d : dataSnapshot.getChildren())
                     {
                         likes.add(d.getValue(String.class));
@@ -159,7 +162,7 @@ public class DiscoverAdapter extends BaseAdapter {
                                 likes.add(d.getValue(String.class));
                             }
                             //set like number
-                            holder.likeCount.setText(String.valueOf(likes.size()));
+                            //holder.likeCount.setText(String.valueOf(likes.size()));
                             //we have liked the post, so we must unlike it
                             if (likes.contains(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                             {
@@ -176,7 +179,7 @@ public class DiscoverAdapter extends BaseAdapter {
                         else
                         {
                             //set likes to zero
-                            holder.likeCount.setText(String.valueOf(0));
+                            //holder.likeCount.setText(String.valueOf(0));
                             likes.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             likeRef.setValue(likes);
                         }

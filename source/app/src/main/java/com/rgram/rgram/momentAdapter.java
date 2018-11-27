@@ -2,7 +2,9 @@ package com.rgram.rgram;
 
 import android.content.Context;
 
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,46 +16,50 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 
 import static android.support.v7.widget.RecyclerView.*;
 
 public class momentAdapter extends BaseAdapter {
+    private List<Messages> Datas;
+    private Context mContext;
 
-    List<String> lists=new ArrayList<String>();
-    int newlikenum;
-    Context context;
+//    List<String> lists=new ArrayList<String>();
+//    int newlikenum;
+//    Context context;
     public ViewHolder viewHolder;
-    public momentAdapter(Context context,List<String> lists){
-        this.context=context;
-        this.lists=lists;
+    public momentAdapter(List<Messages> Datas, Context mContext){
+        this.Datas=Datas;
+        this.mContext=mContext;
     }
 
     @Override
     public int getCount() {
-        return lists.size();
+        return Datas.size();
     }
 
     @Override
     public Object getItem(int position) {
 
-        return null;
+        return Datas.get(position);
     }
 
     @Override
     public long getItemId(int position) {
 
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
-        viewHolder=null;
         if(view==null) {
             viewHolder = new ViewHolder();
-            view=LayoutInflater.from(context).inflate(R.layout.moment, null);
-            viewHolder.iv=(ImageView)view.findViewById(R.id.imageView);
+            view=LayoutInflater.from(mContext).inflate(R.layout.moment, null);
+            viewHolder.iv=(ImageView)view.findViewById(R.id.imageView);   //post
             viewHolder.tv=(TextView)view.findViewById(R.id.textView);
-            viewHolder.mp=(ImageView)view.findViewById(R.id.moment_profile);
+            viewHolder.mp=(ImageView)view.findViewById(R.id.moment_profile);   //avatars
 
             viewHolder.like=(ImageView)view.findViewById(R.id.like);
             viewHolder.likenum=(TextView)view.findViewById(R.id.likenum);
@@ -66,9 +72,29 @@ public class momentAdapter extends BaseAdapter {
         }else{
             viewHolder=(ViewHolder)view.getTag();
         }
-        viewHolder.tv.setText("peter"+","+lists.get(position));
 
+          String urlAvatars = Datas.get(position).getAvatars().toString();
+        Log.d("tag", "avatars-url"+Datas.get(position).getAvatars());
+        Picasso.get()
+                .load(urlAvatars)
+                .fit()
+                .centerCrop()
+                .transform(new PicassoCircleTransformation())
+                .into(viewHolder.mp);
+        viewHolder.tv.setText(Datas.get(position).getName());
+////        Log.d("tag", "messages"+getItem(position));
+        String urlPost=Datas.get(position).getPost().toString();
+        Log.d("tag", "post-url"+Datas.get(position).getPost());
+        Picasso.get()
+                .load(urlPost)
+                .fit()
+        //        .centerCrop()
+                .into(viewHolder.iv);
 
+        Log.d("notebook", "likenum "+Datas.get(position).getLikenum());
+       viewHolder.likenum.setText(String.valueOf(Datas.get(position).getLikenum()));
+       viewHolder.chatnum.setText(String.valueOf(Datas.get(position).getChatnum()));
+//        viewHolder.mp
       final View finalView;
       finalView=view;
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
@@ -113,10 +139,10 @@ class ViewHolder{
     public TextView chatnum;
 
 }
-    public void addData(String text) {
-        if (lists != null)
-            lists.add(text);// 添加数据
-    }
+//    public void addData(String text) {
+//        if (Datas != null)
+//            Datas.add(text);// 添加数据
+//    }
 
 
 }

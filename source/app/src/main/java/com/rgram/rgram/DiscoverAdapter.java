@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +47,9 @@ public class DiscoverAdapter extends BaseAdapter {
         TextView likeCount;
         ImageView commBtn;
         TextView commCount;
+        ListView comments;
+        EditText addComment;
+        Button submitComment;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)
@@ -64,6 +70,9 @@ public class DiscoverAdapter extends BaseAdapter {
             holder.likeCount = convertView.findViewById(R.id.likenum);
             holder.commBtn = convertView.findViewById(R.id.chat);
             holder.commCount = convertView.findViewById(R.id.chatnum);
+            holder.comments = convertView.findViewById(R.id.comments);
+            holder.addComment = convertView.findViewById(R.id.addComment);
+            holder.submitComment = convertView.findViewById(R.id.submitComment);
             convertView.setTag(holder);
         }
         else

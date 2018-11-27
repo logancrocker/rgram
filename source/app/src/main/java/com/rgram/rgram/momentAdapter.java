@@ -60,7 +60,7 @@ public class momentAdapter extends BaseAdapter {
             viewHolder.iv=(ImageView)view.findViewById(R.id.imageView);   //post
             viewHolder.tv=(TextView)view.findViewById(R.id.textView);
             viewHolder.mp=(ImageView)view.findViewById(R.id.moment_profile);   //avatars
-
+            viewHolder.desc=(TextView)view.findViewById(R.id.imgDesc);  //describe
             viewHolder.like=(ImageView)view.findViewById(R.id.like);
             viewHolder.likenum=(TextView)view.findViewById(R.id.likenum);
             viewHolder.chat=(ImageView)view.findViewById(R.id.chat);
@@ -92,6 +92,7 @@ public class momentAdapter extends BaseAdapter {
                 .into(viewHolder.iv);
 
         Log.d("notebook", "likenum "+Datas.get(position).getLikenum());
+        viewHolder.desc.setText(Datas.get(position).getPostdes());
        viewHolder.likenum.setText(String.valueOf(Datas.get(position).getLikenum()));
        viewHolder.chatnum.setText(String.valueOf(Datas.get(position).getChatnum()));
 //        viewHolder.mp
@@ -131,6 +132,7 @@ class ViewHolder{
     public ImageView iv;
     public TextView tv;
     public ImageView mp;
+    public TextView desc;
 
     public ImageView like;
     public ImageView chat;

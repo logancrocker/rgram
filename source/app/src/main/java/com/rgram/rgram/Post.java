@@ -10,6 +10,7 @@ public class Post
     public String imgDescription;
     public String uid;
     public ArrayList<String> tags;
+    public String postID;
 
 
 
@@ -20,7 +21,8 @@ public class Post
         this.path = "";
         this.imgDescription = "";
         uid = "";
-        this.tags=null;
+        this.tags = null;
+        this.postID = "";
     }
 
     public String getUid() {
@@ -33,13 +35,22 @@ public class Post
 
 
 
-    public Post(Integer likes, String path, String imgDescription, String uid, ArrayList<String> tags)
+    public Post(Integer likes, String path, String imgDescription, String uid, ArrayList<String> tags, String postID)
     {
         this.likes = likes;
         this.path = path;
         this.imgDescription = imgDescription;
         this.uid = uid;
         this.tags = tags;
+        this.postID = postID;
+    }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
     }
 
     public Integer getLikes() { return likes; }

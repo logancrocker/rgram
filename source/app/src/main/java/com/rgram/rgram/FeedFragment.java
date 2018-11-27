@@ -84,6 +84,7 @@ public class FeedFragment extends Fragment {
                 for(Post mpost:posts){
                     String followId=mpost.getUid();
                  final String postPic=mpost.getPath();
+                 final String postDesc=mpost.getImgDescription();
                  final int likenum=mpost.getLikes();
                 //    int chatnum=mpost.getComment();
                     FirebaseDatabase.getInstance().getReference().child("users").child(followId).addListenerForSingleValueEvent(new ValueEventListener(){
@@ -92,7 +93,7 @@ public class FeedFragment extends Fragment {
                             User followUser = dataSnapshot.getValue(User.class);
                            final String  name=followUser.userName;
                            final String avatars=followUser.picture;
-                            datas.add(new Messages(name,avatars,postPic,"like",likenum,"chat",10));
+                            datas.add(new Messages(name,avatars,postPic,postDesc,"like",likenum,"chat",10));
 
                         }
                         @Override

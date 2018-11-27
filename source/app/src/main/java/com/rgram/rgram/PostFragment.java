@@ -314,7 +314,7 @@ public class PostFragment extends Fragment {
                                 postRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        final Post newPost = new Post(0, uri.toString(), postDesc, uid, tagsList);
+                                        final Post newPost = new Post(0, uri.toString(), postDesc, uid, tagsList, id);
                                         newpostRef.setValue(newPost);
 
                                         //push the post to each tag feed

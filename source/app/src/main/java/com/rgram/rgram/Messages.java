@@ -4,19 +4,31 @@ public class Messages {
     private String name;
     private String avatars;
     private String post;
+    private String postdes;
     private String like;
     private int likenum;
     private String chat;
     private int chatnum;
 
-    public Messages(String name, String avatars, String post, String like, int likenum, String chat, int chatnum) {
+
+
+    public Messages(String name, String avatars, String post, String postdes, String like, int likenum, String chat, int chatnum) {
         this.name = name;
         this.avatars = avatars;
         this.post = post;
+        this.postdes=postdes;
         this.like = like;
         this.likenum = likenum;
         this.chat = chat;
         this.chatnum = chatnum;
+    }
+
+    public String getPostdes() {
+        return postdes;
+    }
+
+    public void setPostdes(String postdes) {
+        this.postdes = postdes;
     }
 
     public String getName() {

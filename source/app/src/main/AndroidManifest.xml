@@ -4,7 +4,6 @@
     package="com.rgram.rgram">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -17,8 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -28,7 +25,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
 
         <activity
             android:name=".MainActivity"
@@ -42,15 +38,19 @@
         <activity android:name=".CropImage.MonitoredActivity" />
         <activity android:name=".CropImage.CropImage" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".FeedActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".FeedActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".ViewProfileActivity" />
-        <activity android:name=".CommentActivity" />
+
         <provider
-            android:name="com.rgram.rgram.CropImage.InternalStorageContentProvider"
+            android:name=".CropImage.InternalStorageContentProvider"
             android:authorities="com.rgram.rgram.cropimages.CameraActivity"
             android:exported="true" />
+
+        <activity android:name=".Activity" />
+        <activity android:name=".CommentActivity"></activity>
     </application>
 
 </manifest>

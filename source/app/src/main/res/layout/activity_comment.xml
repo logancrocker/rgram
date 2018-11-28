@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp">
+    android:orientation="vertical"
+    tools:context=".CommentActivity">
 
-    <ListView
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/edt_title"
+        android:inputType="text"
+        android:hint="Title"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edt_content"
+        android:inputType="textMultiLine"
+        android:hint="Content"/>
+
+    <Button
+        android:id="@+id/btn_postcomment"
+        android:text="POST"
         android:layout_width="wrap_content"
-        android:id="@+id/commentList"></ListView>
+        android:layout_height="wrap_content" />
 
-    <!--EditText
-            android:layout_height="wrap_content"
-            android:layout_width="280dp"
-            android:id="@+id/addComment"
-            android:layout_below="@id/commentList"
-            android:hint="Add a comment..." />
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Add"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:layout_toRightOf="@id/addComment"
-            android:layout_below="@id/comments"
-            android:id="@+id/submitComment"/-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+</LinearLayout>

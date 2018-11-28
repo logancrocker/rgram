@@ -1,53 +1,54 @@
 package com.rgram.rgram;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ListView;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class CommentActivity extends AppCompatActivity {
 
-    ListView commentList;
+    EditText edt_title,edt_content;
+    Button btn_post;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+    FirebaseRecyclerAdapter<Comment,MyRecyclerViewHolder> adapter;
+    FirebaseRecyclerOptions<Comment> options;
+    RecyclerView recyclerView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_comment);
 
-        commentList = findViewById(R.id.commentList);
+        edt_content = (EditText)findViewById(R.id.edt_content);
+        edt_title = (EditText)findViewById(R.id.edt_title);
+        btn_post = (Button)findViewById(R.id.btn_postcomment);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Comments");
 
-        //grab all comments
-        final ArrayList<Comment> comments = new ArrayList<Comment>();
-        DatabaseReference commRef = FirebaseDatabase.getInstance().getReference("comments/" + id);
-        commRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                {
-                    comments.clear();
-                    for (DataSnapshot d : dataSnapshot.getChildren())
-                    {
-                        Comment curr = d.getValue(Comment.class);
-                        comments.add(curr);
-                    }
-                    final CommentAdapter commentAdapter = new CommentAdapter(getBaseContext(), comments);
-                    commentList.setAdapter(commentAdapter);
-                }
+                displayComment();
             }
 
             @Override
@@ -55,6 +56,57 @@ public class CommentActivity extends AppCompatActivity {
 
             }
         });
+
+        btn_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postComment();
+            }
+        });
+
+        displayComment();
+    }
+
+    @Override
+    protected void onStop() {
+        if (adapter != null)
+            adapter.stopListening();
+        super.onStop();
+    }
+
+    private void postComment() {
+        String title = edt_title.getText().toString();
+        String content = edt_content.getText().toString();
+        Comment cmt = new Comment(title,content);
+
+        databaseReference.push().setValue(cmt);
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void displayComment() {
+        options = new FirebaseRecyclerOptions.Builder<Comment>()
+                .setQuery(databaseReference,Comment.class)
+                .build();
+
+        adapter = new FirebaseRecyclerAdapter<Comment, MyRecyclerViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull MyRecyclerViewHolder holder, int position, @NonNull Comment model) {
+                holder.txt_title.setText(model.getTitle());
+                holder.txt_content.setText(model.getContent());
+            }
+
+            @NonNull
+            @Override
+            public MyRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View itemview = LayoutInflater.from(getBaseContext()).inflate(R.layout.comment_item,parent,false);
+                return new MyRecyclerViewHolder(itemview);
+            }
+        };
+
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
 
     }
 }

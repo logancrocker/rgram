@@ -75,8 +75,7 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/chat"
-                    android:id="@+id/chat"
-                    android:visibility="gone"/>
+                    android:id="@+id/chat"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -85,45 +84,22 @@
                     android:text="0"
                     android:textColor="#000000"
                     android:textSize="20sp"
-                    android:id="@+id/chatnum"
-                    android:visibility="gone"/>
+                    android:id="@+id/chatnum"/>
+
+
             </android.support.v7.widget.LinearLayoutCompat>
-
-            <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-            <EditText
-                android:layout_height="wrap_content"
-                android:layout_width="260dp"
-                android:id="@+id/addComment"
-                android:layout_below="@id/like"
-                android:hint="Add a comment..."
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:cursorVisible="true"
-                android:visibility="gone"/>
             <Button
-                android:layout_height="wrap_content"
-                android:layout_width="40dp"
-                android:background="@color/colorPrimary"
-                android:text="Add"
-                android:layout_marginRight="10dp"
-                android:textColor="#fff"
-                android:id="@+id/submitComment"
-                android:visibility="gone"/>
 
-                <Button
-                    android:layout_height="wrap_content"
-                    android:layout_width="40dp"
-                    android:background="@color/colorPrimary"
-                    android:text="View"
-                    android:textColor="#fff"
-                    android:id="@+id/viewcomments"
-                    android:visibility="gone"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="Come to Leave a Comment"
+                android:textSize="20dp"
+                android:layout_marginTop="20sp"
+                android:textColor="#fff"
+                android:id="@+id/submitComment"/>
 
         </LinearLayout>
-
 
 
     </RelativeLayout>

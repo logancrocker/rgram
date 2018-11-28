@@ -17,12 +17,25 @@ buildscript {
     }
 }
 
+ext {
+    googlePlayServicesVersion = "15.0.1"
+}
+
 allprojects {
     repositories {
+        mavenLocal()
+        maven { url 'http://maven.google.com' }
+        jcenter { url "http://jcenter.bintray.com/" }
         google()
-        jcenter()
-    }
-}
+        configurations.all {
+            resolutionStrategy {
+                force "com.google.android.gms:play-services-basement:$googlePlayServicesVersion"
+                force "com.google.android.gms:play-services-tasks:$googlePlayServicesVersion"
+                    }
+                }
+            }
+        }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

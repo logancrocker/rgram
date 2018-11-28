@@ -1,20 +1,21 @@
 package com.rgram.rgram;
 
 public class Comment {
-
-    private String content;
-    private String uid;
-
-    public Comment()
-    {
-        this.content = "";
-        this.uid = "";
+    private String title,content;
+    public Comment() {
     }
 
-    public Comment(String content, String uid)
-    {
+    public Comment(String title, String content) {
+        this.title = title;
         this.content = content;
-        this.uid = uid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -23,13 +24,5 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 }

@@ -109,15 +109,15 @@ public class PostFragment extends Fragment {
                 GetCameraPermission();
             }
         });
-        Button post=view.findViewById(R.id.button2);
-        post.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                newitemnum=FeedFragment.getItemnum();
-                newitemnum++;
-                FeedFragment.setItemnum(newitemnum);
-
-            }
-        });
+//        Button post=view.findViewById(R.id.button2);
+//        post.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View view) {
+//                newitemnum=FeedFragment.getItemnum();
+//                newitemnum++;
+//                FeedFragment.setItemnum(newitemnum);
+//
+//            }
+//        });
         return view;
     }
 

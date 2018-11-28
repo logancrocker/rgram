@@ -30,13 +30,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
-
+import java.util.List;
 import static com.rgram.rgram.R.color.colorPrimary;
 
 public class FeedFragment extends Fragment {
     ListView moments_list_layout;
-    ArrayList<String> listdata=new ArrayList<String>();
+    List <Messages> listdata=new ArrayList<Messages>();
+    List <Messages> datas=new ArrayList<Messages>();
     private static int itemnum=0;
     momentAdapter adapter;
     ListView myFeed;
@@ -68,21 +70,59 @@ public class FeedFragment extends Fragment {
         }
         moments_list_layout = (ListView) getView().findViewById(R.id.show_moment);
 
+=======
+//        for(int i=0;i<itemnum;i++){
+//            listdata.add("Item"+listdata.size());
+//            itemnum--;
+//        }
+>>>>>>> bc13faeee58eb2ed3bf61c572b4fc88ebac47e2f
 
-        adapter=new momentAdapter(this.getContext(),listdata);
-        moments_list_layout.setAdapter(adapter);
-        //  moments_list_layout.setOnScrollListener((AbsListView.OnScrollListener) this);
-        moments_list_layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //initialize listdata
+//        Messages testmessage=new Messages("name1","https://firebasestorage.googleapis.com/v0/b/rgram-885a2.appspot.com/o/avatars%2F1543095759003.jpg?alt=media&token=24315e5b-7d2c-4920-a7b7-ec8e505cf2d0","https://firebasestorage.googleapis.com/v0/b/rgram-885a2.appspot.com/o/avatars%2F1543095759003.jpg?alt=media&token=24315e5b-7d2c-4920-a7b7-ec8e505cf2d0","like",3,"chat",6);
+//        Messages tmessage=new Messages("name2","avatars","post","like",4,"chat",7);
+//        listdata.add(testmessage);
+//        listdata.add(tmessage);
+        moments_list_layout = (ListView) getView().findViewById(R.id.show_moment);
+//        //initialize listdata
+        DatabaseReference meFollowRef = FirebaseDatabase.getInstance().getReference().child("feeds").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        meFollowRef.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                //Toast.makeText(getApplicationContext(), "p:"+position+",id:"+id, 1).show();
-                Log.i("msg", "p:"+position+",id:"+id);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+                ArrayList<Post> posts=new ArrayList<Post>();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                     posts.add(postSnapshot.getValue(Post.class));
+                }
+                Collections.reverse(posts);
+                for(Post mpost:posts){
+                    String followId=mpost.getUid();
+                 final String postPic=mpost.getPath();
+                 final String postDesc=mpost.getImgDescription();
+                 final int likenum=mpost.getLikes();
+                //    int chatnum=mpost.getComment();
+                    FirebaseDatabase.getInstance().getReference().child("users").child(followId).addListenerForSingleValueEvent(new ValueEventListener(){
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+                            User followUser = dataSnapshot.getValue(User.class);
+                           final String  name=followUser.userName;
+                           final String avatars=followUser.picture;
+                            datas.add(new Messages(name,avatars,postPic,postDesc,"like",likenum,"chat",10));
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
         });
-        adapter.setOnaddlikeClickListener(new momentAdapter.OnItemaddlikeListener() {
 
-
+<<<<<<< HEAD
     }*/
 
         //grab all feed posts
@@ -115,21 +155,54 @@ public class FeedFragment extends Fragment {
         //Toast.makeText(getApplicationContext(), "s:"+scrollState, 1).show();
         Log.i("msg",  "s:"+scrollState);
     }
+=======
+        adapter=new momentAdapter(datas,getActivity());
+//        adapter=new momentAdapter(listdata,getActivity());
+        moments_list_layout.setAdapter(adapter);
+        //  moments_list_layout.setOnScrollListener((AbsListView.OnScrollListener) this);
+//        moments_list_layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+//                //Toast.makeText(getApplicationContext(), "p:"+position+",id:"+id, 1).show();
+//                Log.i("msg", "p:"+position+",id:"+id);
+//            }
+>>>>>>> bc13faeee58eb2ed3bf61c572b4fc88ebac47e2f
+
+//        });
+//        adapter.setOnaddlikeClickListener(new momentAdapter.OnItemaddlikeListener() {
+//
+//
+////            @Override
+////            public void onAddlikeClick(int i, View view) {
+////            view.getTag(4).
+////                newlikenum=Integer.parseInt(viewHolder.likenum.getText().toString());
+////
+////            }
+//        });
 
 
-
-    public void onScroll(AbsListView view, int firstVisibleItem,int visibleItemCount, int totalItemCount) {
-        // Toast.makeText(getApplicationContext(), "f:"+firstVisibleItem+",v:"+visibleItemCount+",t"+totalItemCount, 1).show();
-        Log.i("msg", "f:"+firstVisibleItem+",v:"+visibleItemCount+",t"+totalItemCount);
     }
+//    public void onScrollStateChanged(AbsListView view, int scrollState) {
+//        //Toast.makeText(getApplicationContext(), "s:"+scrollState, 1).show();
+//        Log.i("msg",  "s:"+scrollState);
+//    }
 
-    public void add(View view) {
-
-        adapter.addData(listdata.size()+"");
-        adapter.notifyDataSetChanged();
 
 
+//    public void onScroll(AbsListView view, int firstVisibleItem,int visibleItemCount, int totalItemCount) {
+//        // Toast.makeText(getApplicationContext(), "f:"+firstVisibleItem+",v:"+visibleItemCount+",t"+totalItemCount, 1).show();
+//        Log.i("msg", "f:"+firstVisibleItem+",v:"+visibleItemCount+",t"+totalItemCount);
+//    }
+
+<<<<<<< HEAD
     }*/
+//    public void add(View view) {
+//
+//        adapter.addData(listdata.size()+"");
+//        adapter.notifyDataSetChanged();
+//
+//
+//    }
 
     }
 }

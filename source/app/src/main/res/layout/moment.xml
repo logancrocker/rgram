@@ -18,11 +18,11 @@
                 android:layout_margin="10dp">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
                     android:id="@+id/moment_profile"
-                    android:src="@drawable/user"/>
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/user" />
                 <TextView
                     android:id="@+id/textView"
                     android:text="username"
@@ -34,8 +34,9 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_width="176dp"
+                android:layout_height="178dp"
+                android:layout_margin="10dp"
                 android:background="#FF112233"
                 android:src="@drawable/ic_launcher_background" />
 

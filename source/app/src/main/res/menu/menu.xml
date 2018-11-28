@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
-    <item android:id="@+id/action_settings"
-        android:title="Settings"
-        app:showAsAction="never" />
-
     <item android:id="@+id/action_logout"
         android:title="Log Out"
         app:showAsAction="never"/>
+
+    <item android:id="@+id/action_delete"
+        android:title="Delete Account"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_change"
+        android:title="Change password"
+        app:showAsAction="never" />
 
 </menu>

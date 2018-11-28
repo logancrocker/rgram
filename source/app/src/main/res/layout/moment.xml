@@ -74,7 +74,8 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/chat"
-                    android:id="@+id/chat"/>
+                    android:id="@+id/chat"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,34 +84,46 @@
                     android:text="0"
                     android:textColor="#000000"
                     android:textSize="20sp"
-                    android:id="@+id/chatnum"/>
+                    android:id="@+id/chatnum"
+                    android:visibility="gone"/>
             </android.support.v7.widget.LinearLayoutCompat>
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="260dp"
+                android:id="@+id/addComment"
+                android:layout_below="@id/like"
+                android:hint="Add a comment..."
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:cursorVisible="true"
+                android:visibility="gone"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:background="@color/colorPrimary"
+                android:text="Add"
+                android:layout_marginRight="10dp"
+                android:textColor="#fff"
+                android:id="@+id/submitComment"
+                android:visibility="gone"/>
+
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:background="@color/colorPrimary"
+                    android:text="View"
+                    android:textColor="#fff"
+                    android:id="@+id/viewcomments"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
         </LinearLayout>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userInfo"
-            android:id="@+id/comments">
-        </ListView>
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="280dp"
-            android:id="@+id/addComment"
-            android:layout_below="@id/comments"
-            android:hint="Add a comment..." />
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Add"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:layout_toRightOf="@id/addComment"
-            android:layout_below="@id/comments"
-            android:id="@+id/submitComment"/>
 
     </RelativeLayout>
 

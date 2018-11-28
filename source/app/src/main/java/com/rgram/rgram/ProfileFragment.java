@@ -128,6 +128,7 @@ public class ProfileFragment extends Fragment {
                 User myself = dataSnapshot.getValue(User.class);
 
                 if (myself.getFollowing() != null) { following_num.setText(String.valueOf(myself.getFollowing().size())); }
+                if (myself.getFollowers() != null) { followers_num.setText(String.valueOf(myself.getFollowers().size())); }
                 if (myself.getPosts() != null) { posts_num.setText(String.valueOf(myself.getPosts().size())); }
                 if (myself.getPosts() != null)
                 {

@@ -2,6 +2,7 @@ package com.rgram.rgram;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
@@ -13,10 +14,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.nio.file.attribute.DosFileAttributeView;
 import java.util.ArrayList;
 
 public class DiscoverAdapter extends BaseAdapter {
@@ -50,7 +54,7 @@ public class DiscoverAdapter extends BaseAdapter {
         TextView likeCount;
         ImageView commBtn;
         TextView commCount;
-        ListView comments;
+        Button viewcomments;
         EditText addComment;
         Button submitComment;
     }
@@ -73,7 +77,7 @@ public class DiscoverAdapter extends BaseAdapter {
             holder.likeCount = convertView.findViewById(R.id.likenum);
             holder.commBtn = convertView.findViewById(R.id.chat);
             holder.commCount = convertView.findViewById(R.id.chatnum);
-            holder.comments = convertView.findViewById(R.id.comments);
+            holder.viewcomments = convertView.findViewById(R.id.viewcomments);
             holder.addComment = convertView.findViewById(R.id.addComment);
             holder.submitComment = convertView.findViewById(R.id.submitComment);
             convertView.setTag(holder);
@@ -86,11 +90,14 @@ public class DiscoverAdapter extends BaseAdapter {
         final Post p = getItem(position);
 
         holder.description.setText(p.getImgDescription());
-        Picasso.get()
-                .load(p.getPath())
-                .fit()
-                .centerCrop()
-                .into(holder.img);
+        if (!p.getPath().isEmpty())
+        {
+            Picasso.get()
+                    .load(p.getPath())
+                    .fit()
+                    .centerCrop()
+                    .into(holder.img);
+        }
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/" + p.getUid());
 
@@ -147,6 +154,7 @@ public class DiscoverAdapter extends BaseAdapter {
 
             }
         });
+
         //like button functionality
         holder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +200,54 @@ public class DiscoverAdapter extends BaseAdapter {
                 });
             }
         });
+
+        holder.submitComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference commRef = ref.child("comments").child(p.getPostID());
+                final DatabaseReference newCommRef = commRef.push();
+                DatabaseReference me = FirebaseDatabase.getInstance().getReference("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                me.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User myself = dataSnapshot.getValue(User.class);
+                        {
+                            Log.d("notebook", "testing");
+                            newCommRef.setValue(new Comment(holder.addComment.getText().toString(),
+                                    myself.getUserName()));
+
+                            Toast toast = Toast.makeText(context,
+                                    "Comment submitted",
+                                    Toast.LENGTH_SHORT);
+
+                            toast.show();
+
+                            Intent newIntent = new Intent(context, CommentActivity.class);
+                            newIntent.putExtra("id", p.getPostID());
+                            context.startActivity(newIntent);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        holder.viewcomments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(context, CommentActivity.class);
+                newIntent.putExtra("id", p.getPostID());
+                context.startActivity(newIntent);
+            }
+        });
+
+
 
         return convertView;
 

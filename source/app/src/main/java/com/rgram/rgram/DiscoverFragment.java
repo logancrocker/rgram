@@ -43,7 +43,7 @@ public class DiscoverFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         spinner = getView().findViewById(R.id.spinner1);

@@ -42,9 +42,11 @@
         <activity android:name=".CropImage.MonitoredActivity" />
         <activity android:name=".CropImage.CropImage" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".FeedActivity" />
+        <activity android:name=".FeedActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".SettingActivity" />
         <activity android:name=".ViewProfileActivity" />
+        <activity android:name=".CommentActivity" />
         <provider
             android:name="com.rgram.rgram.CropImage.InternalStorageContentProvider"
             android:authorities="com.rgram.rgram.cropimages.CameraActivity"

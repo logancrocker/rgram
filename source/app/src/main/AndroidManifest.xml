@@ -49,8 +49,9 @@
             android:authorities="com.rgram.rgram.cropimages.CameraActivity"
             android:exported="true" />
 
-        <activity android:name=".Activity" />
-        <activity android:name=".CommentActivity"></activity>
+        <!--<activity android:name=".Activity" />-->
+        <activity android:name=".CommentActivity" />
+        <activity android:name=".Aboutus"></activity>
     </application>
 
 </manifest>

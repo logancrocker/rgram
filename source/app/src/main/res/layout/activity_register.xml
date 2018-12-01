@@ -4,56 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
     android:orientation="vertical"
-    tools:context="com.rgram.rgram.RegisterActivity">
+    tools:context="com.rgram.rgram.RegisterActivity"
+    android:background="@drawable/animation_colors"
+    android:id="@+id/signip_container">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/school_spirit_bearlogo"
+        android:src="@drawable/rlogo"
         android:maxHeight="30dp"
         android:maxWidth="30dp"
         android:scaleType="fitCenter"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Name"
         android:inputType="textEmailAddress"
         android:textSize="23dp"
-
+        android:drawableLeft="@drawable/ic_smile"
         android:id="@+id/register_name"
         android:backgroundTint="#000000"/>
 
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textSize="23dp"
         android:id="@+id/register_email"
+        android:drawableLeft="@drawable/ic_email"
         android:backgroundTint="#000000"/>
 
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
         android:textSize="23dp"
         android:id="@+id/register_password"
+        android:drawableLeft="@drawable/ic_out"
         android:backgroundTint="#000000"/>
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:textSize="23dp"
+        android:drawableLeft="@drawable/ic_out"
         android:id="@+id/register_confirm_password"
         android:backgroundTint="#000000"/>
 
@@ -78,15 +83,26 @@
 
 
     <Button
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
-        android:layout_margin="5dp"
-        android:text="Register"
+        android:layout_margin="10dp"
+        android:text="Sign Up"
         android:textColor="#fff"
         android:id="@+id/button_register_submit"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColor="#ffff"
+        android:textSize="16dp"
+        android:text="Have account? Log in"
+        android:id="@+id/have_account"
+        />
+
 
 
 </LinearLayout>

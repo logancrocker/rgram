@@ -1,12 +1,14 @@
 package com.rgram.rgram;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    LinearLayout msignupContainer;
+    AnimationDrawable mAnimationDrwable;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference database;
@@ -32,6 +35,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         //grab progress bar
+
+        msignupContainer=findViewById(R.id.signip_container);
+        mAnimationDrwable= (AnimationDrawable) msignupContainer.getBackground();
+        mAnimationDrwable.setEnterFadeDuration(2000);
+        mAnimationDrwable.setExitFadeDuration(2000);
+
         progressBar = findViewById(R.id.pbLoading);
         //get instance of the database
         firebaseAuth = FirebaseAuth.getInstance();
@@ -46,6 +55,15 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText name = findViewById(R.id.register_name);
         //grab error message
         final TextView register_error_msg = findViewById(R.id.register_error_msg);
+
+        TextView haveaccount=findViewById(R.id.have_account);
+        haveaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,5 +119,21 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if(mAnimationDrwable!=null&&!mAnimationDrwable.isRunning()){
+            mAnimationDrwable.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mAnimationDrwable!=null&&mAnimationDrwable.isRunning()){
+            mAnimationDrwable.stop();
+        }
     }
 }

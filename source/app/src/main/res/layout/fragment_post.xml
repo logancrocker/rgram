@@ -11,7 +11,8 @@
     android:paddingTop="16dp"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".PostFragment">
+    tools:context=".PostFragment"
+    android:background="@drawable/color1">
 
 
 

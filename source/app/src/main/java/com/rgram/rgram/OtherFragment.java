@@ -47,7 +47,7 @@ public class OtherFragment extends Fragment  {
     TextView name;
     TextView description;
     TextView follow;
-    Button visit_profile;
+
     CircleImageView profile_image;
 
     public OtherFragment() {
@@ -72,8 +72,7 @@ public class OtherFragment extends Fragment  {
         searchbutton = getView().findViewById(R.id.search_button);
         card = getView().findViewById(R.id.cardview);
         card.setVisibility(View.INVISIBLE);
-        visit_profile = getView().findViewById(R.id.visit_profile);
-        visit_profile.setVisibility(View.INVISIBLE);
+
         profile_image = getView().findViewById(R.id.profile_image);
 
         final ArrayList<User> result = new ArrayList<>();
@@ -106,7 +105,7 @@ public class OtherFragment extends Fragment  {
                             }
                             //show the card and visit button
                             card.setVisibility(View.VISIBLE);
-                            visit_profile.setVisibility(View.VISIBLE);
+
                             //set post num
                             posts_num = getView().findViewById(R.id.posts_num_tv);
                             //Log.d("notebook", String.valueOf(result.get(0).getPosts().size()));
@@ -249,7 +248,7 @@ public class OtherFragment extends Fragment  {
             }
         });
 
-        visit_profile.setOnClickListener(new View.OnClickListener() {
+        profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //we will pass the uid to the new activity so we can populate the profile page

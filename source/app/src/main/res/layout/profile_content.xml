@@ -8,7 +8,8 @@ android:layout_height="match_parent">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@drawable/color4"
+    >
 
 
         <!-- Upper Part Layout-->
@@ -74,7 +75,7 @@ android:layout_height="match_parent">
             android:orientation="vertical"
             android:id="@+id/middle_part_layout"
             android:padding="10dp"
-            android:background="@color/colorWhite"
+
             android:layout_marginBottom="20dp">
 
             <TextView

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     tools:context=".ProfileFragment" >
 
-    <include layout="@layout/profile_content" />
+    <include layout="@layout/profile_content"/>
 
 
 </RelativeLayout>

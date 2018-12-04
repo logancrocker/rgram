@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mloginContainer=findViewById(R.id.login_container);
-        mAnimationDrwable= (AnimationDrawable) mloginContainer.getBackground();
-        mAnimationDrwable.setEnterFadeDuration(2000);
-        mAnimationDrwable.setExitFadeDuration(2000);
 
         //set the toolbar
         Toolbar toolbar = findViewById(R.id.my_toolbar);

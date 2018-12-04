@@ -48,9 +48,7 @@ public class DiscoverAdapter extends BaseAdapter {
         TextView description;
         ImageView likeBtn;
         TextView likeCount;
-        ImageView commBtn;
-        TextView commCount;
-        Button submitComment;
+        TextView submitComment;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)
@@ -69,8 +67,6 @@ public class DiscoverAdapter extends BaseAdapter {
             holder.profilePic = convertView.findViewById(R.id.moment_profile);
             holder.likeBtn = convertView.findViewById(R.id.like);
             holder.likeCount = convertView.findViewById(R.id.likenum);
-            holder.commBtn = convertView.findViewById(R.id.chat);
-            holder.commCount = convertView.findViewById(R.id.chatnum);
             holder.submitComment = convertView.findViewById(R.id.submitComment);
             convertView.setTag(holder);
         }

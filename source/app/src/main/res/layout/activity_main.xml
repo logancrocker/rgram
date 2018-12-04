@@ -30,7 +30,6 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textSize="23dp"
-        android:textColor="@color/colorPink"
         android:layout_marginTop="10dp"
         android:id="@+id/email"
         android:backgroundTint="#000000"

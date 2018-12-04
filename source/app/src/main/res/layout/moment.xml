@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp">
     <RelativeLayout
@@ -19,24 +20,24 @@
 
                 <ImageView
                     android:id="@+id/moment_profile"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/user" />
                 <TextView
                     android:id="@+id/textView"
                     android:text="username"
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"/>
+                    android:textSize="20dp"/>
             </android.support.v7.widget.LinearLayoutCompat>
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="176dp"
-                android:layout_height="178dp"
-                android:layout_margin="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="360dp"
                 android:background="#FF112233"
                 android:src="@drawable/ic_launcher_background" />
 
@@ -45,8 +46,9 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:textSize="20dp"
-                android:layout_margin="5dp"
-                android:text="Description.."/>
+                android:layout_margin="10dp"
+                android:textColor="#000"
+                android:text="Description..."/>
 
 
             <android.support.v7.widget.LinearLayoutCompat
@@ -70,33 +72,16 @@
                     android:textSize="20sp"
                     android:id="@+id/likenum"/>
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/chat"
-                    android:id="@+id/chat"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:id="@+id/chatnum"/>
-
-
             </android.support.v7.widget.LinearLayoutCompat>
-            <Button
+
+            <TextView
 
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:background="@color/colorPrimary"
-                android:text="Come to Leave a Comment"
+                android:text="Touch to view comments"
                 android:textSize="20dp"
-                android:layout_marginTop="20sp"
-                android:textColor="#fff"
+                android:textColor="#000"
+                android:layout_marginTop="2dp"
                 android:id="@+id/submitComment"/>
 
         </LinearLayout>

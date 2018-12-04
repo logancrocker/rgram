@@ -63,8 +63,6 @@ public class momentAdapter extends BaseAdapter {
             viewHolder.desc=(TextView)view.findViewById(R.id.imgDesc);  //describe
             viewHolder.like=(ImageView)view.findViewById(R.id.like);
             viewHolder.likenum=(TextView)view.findViewById(R.id.likenum);
-            viewHolder.chat=(ImageView)view.findViewById(R.id.chat);
-            viewHolder.chatnum=(TextView)view.findViewById(R.id.chatnum);
 
 
             view.setTag(viewHolder);

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -46,7 +47,7 @@ public class DiscoverAdapter extends BaseAdapter {
         TextView username;
         ImageView img;
         TextView description;
-        ImageView likeBtn;
+        ToggleButton likeBtn;
         TextView likeCount;
         TextView submitComment;
     }

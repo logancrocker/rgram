@@ -56,11 +56,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/like"
+                    android:checked="false"
+                    android:textOff="Like"
+                    android:textOn="Unlike"
                     android:id="@+id/like"/>
 
                 <TextView
@@ -78,10 +80,10 @@
 
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Touch to view comments"
+                android:text="Touch to view comments..."
                 android:textSize="20dp"
                 android:textColor="#000"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/submitComment"/>
 
         </LinearLayout>

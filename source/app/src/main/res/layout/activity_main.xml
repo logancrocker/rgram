@@ -16,7 +16,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/rlogo"
+        android:src="@drawable/school_spirit_bearlogo"
         android:maxHeight="30dp"
         android:maxWidth="30dp"
         android:scaleType="fitCenter"
@@ -31,6 +31,7 @@
         android:inputType="textEmailAddress"
         android:textSize="23dp"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:id="@+id/email"
         android:backgroundTint="#000000"
         android:drawableLeft="@drawable/ic_email"
@@ -45,6 +46,7 @@
         android:inputType="textPassword"
         android:textSize="23dp"
         android:id="@+id/password"
+        android:gravity="center"
         android:backgroundTint="#000000"
         android:drawableLeft="@drawable/ic_out"/>
 

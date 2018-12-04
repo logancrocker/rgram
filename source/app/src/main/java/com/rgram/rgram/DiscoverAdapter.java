@@ -142,6 +142,7 @@ public class DiscoverAdapter extends BaseAdapter {
                         likes.add(d.getValue(String.class));
                     }
                     //set like number
+                    if (likes.contains(FirebaseAuth.getInstance().getCurrentUser().getUid())) { holder.likeBtn.setChecked(true); }
                     holder.likeCount.setText(String.valueOf(likes.size()));
                 }
                 else

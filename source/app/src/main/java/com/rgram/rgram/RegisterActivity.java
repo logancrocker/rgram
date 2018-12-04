@@ -37,9 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
         //grab progress bar
 
         msignupContainer=findViewById(R.id.signip_container);
-        mAnimationDrwable= (AnimationDrawable) msignupContainer.getBackground();
-        mAnimationDrwable.setEnterFadeDuration(2000);
-        mAnimationDrwable.setExitFadeDuration(2000);
 
         progressBar = findViewById(R.id.pbLoading);
         //get instance of the database

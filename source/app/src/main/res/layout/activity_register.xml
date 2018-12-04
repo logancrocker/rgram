@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.rgram.rgram.RegisterActivity"
-    android:background="@drawable/animation_colors"
     android:id="@+id/signip_container">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/rlogo"
+        android:src="@drawable/school_spirit_bearlogo"
         android:maxHeight="30dp"
         android:maxWidth="30dp"
         android:scaleType="fitCenter"
@@ -27,6 +26,7 @@
         android:inputType="textEmailAddress"
         android:textSize="23dp"
         android:drawableLeft="@drawable/ic_smile"
+        android:gravity="center"
         android:id="@+id/register_name"
         android:backgroundTint="#000000"/>
 
@@ -39,6 +39,7 @@
         android:textSize="23dp"
         android:id="@+id/register_email"
         android:drawableLeft="@drawable/ic_email"
+        android:gravity="center"
         android:backgroundTint="#000000"/>
 
     <EditText
@@ -50,11 +51,13 @@
         android:textSize="23dp"
         android:id="@+id/register_password"
         android:drawableLeft="@drawable/ic_out"
+        android:gravity="center"
         android:backgroundTint="#000000"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:textSize="23dp"
@@ -97,9 +100,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="#ffff"
+        android:textColor="#000"
         android:textSize="16dp"
-        android:text="Have account? Log in"
+        android:text="Have an account? Log in"
         android:id="@+id/have_account"
         />
 

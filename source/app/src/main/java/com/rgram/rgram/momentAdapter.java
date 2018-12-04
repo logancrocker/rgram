@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import org.w3c.dom.Text;
 
@@ -61,7 +62,7 @@ public class momentAdapter extends BaseAdapter {
             viewHolder.tv=(TextView)view.findViewById(R.id.textView);
             viewHolder.mp=(ImageView)view.findViewById(R.id.moment_profile);   //avatars
             viewHolder.desc=(TextView)view.findViewById(R.id.imgDesc);  //describe
-            viewHolder.like=(ImageView)view.findViewById(R.id.like);
+            viewHolder.like=(ImageView) view.findViewById(R.id.like);
             viewHolder.likenum=(TextView)view.findViewById(R.id.likenum);
 
 

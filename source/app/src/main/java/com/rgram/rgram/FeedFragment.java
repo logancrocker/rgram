@@ -141,6 +141,7 @@ public class FeedFragment extends Fragment {
                         Log.d("notebook", curr.getImgDescription());
                         feedPosts.add(curr);
                     }
+                    Collections.reverse(feedPosts);
                     DiscoverAdapter discoverAdapter = new DiscoverAdapter(getContext(), feedPosts);
                     myFeed.setAdapter(discoverAdapter);
                 }

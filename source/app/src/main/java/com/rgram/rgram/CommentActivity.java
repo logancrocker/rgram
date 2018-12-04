@@ -1,5 +1,6 @@
 package com.rgram.rgram;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class CommentActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<Comment,MyRecyclerViewHolder> adapter;
     FirebaseRecyclerOptions<Comment> options;
     RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

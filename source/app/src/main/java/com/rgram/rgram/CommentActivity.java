@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,16 @@ public class CommentActivity extends AppCompatActivity {
         btn_post = (Button)findViewById(R.id.btn_postcomment);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Intent intent = getIntent();
+        String postId = "";
+        Bundle b = intent.getExtras();
+        if(b != null){
+            postId = (String)b.get("postId");
+            Log.d("postId is",postId);
+        }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Comments");
+        databaseReference = firebaseDatabase.getReference("posts" + postId + "Comments");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

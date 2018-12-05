@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,9 @@ public class DiscoverAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,CommentActivity.class);
+                String postID = p.getPostID();
+                Log.d("PostIDinDiscoverAdap", postID);
+                intent.putExtra("postId",postID);
                 context.startActivity(intent);
             }
         });

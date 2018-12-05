@@ -105,7 +105,7 @@ public class FeedActivity extends AppCompatActivity {
                 "feed"))//添加图标和文字
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "search"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,"post"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "discover"))
+                .addItem(new BottomNavigationItem(R.drawable.world, "discover"))
                 .addItem(new BottomNavigationItem(R.drawable.user, "profile"))
                 .initialise();
 

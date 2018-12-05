@@ -8,12 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".ViewProfileActivity">
 
-
-        <include
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <include layout="@layout/profile_content"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />

@@ -55,13 +55,16 @@ public class CommentActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("posts").child(postId).child("Comments");
+        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         UserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-
+        //show comments
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 displayComment();
+
             }
 
             @Override
@@ -73,7 +76,22 @@ public class CommentActivity extends AppCompatActivity {
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postComment();
+                //ref to ourself to get username
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("users/" + uid);
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User me = dataSnapshot.getValue(User.class);
+                        Log.d("notebook", me.getUserName());
+                        String userName = me.getUserName();
+                        postComment(userName);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -87,10 +105,10 @@ public class CommentActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    private void postComment() {
+    private void postComment(String uname) {
         String title = edt_title.getText().toString();
         String content = edt_content.getText().toString();
-        Comment cmt = new Comment(title,content,UserEmail);
+        Comment cmt = new Comment(title,content, uname);
 
         databaseReference.push().setValue(cmt);
 

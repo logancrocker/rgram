@@ -33,6 +33,7 @@ public class DiscoverAdapter extends BaseAdapter {
     Context context;
     ArrayList<Post> posts;
     ViewHolder holder;
+    String userNameOfPost = "";
 
 
 
@@ -105,6 +106,7 @@ public class DiscoverAdapter extends BaseAdapter {
                                 .centerCrop()
                                 .into(holder.profilePic);
                     }
+                    userNameOfPost = u.getUserName();
                     holder.username.setText(u.getUserName());
                 }
             }
@@ -126,6 +128,8 @@ public class DiscoverAdapter extends BaseAdapter {
                 String postID = p.getPostID();
                 Log.d("PostIDinDiscoverAdap", postID);
                 intent.putExtra("postId",postID);
+                intent.putExtra("userNameOfPost",userNameOfPost);
+                Log.d("UserNameOfPost",userNameOfPost);
                 context.startActivity(intent);
             }
         });

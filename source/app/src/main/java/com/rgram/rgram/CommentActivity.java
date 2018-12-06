@@ -32,7 +32,7 @@ public class CommentActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<Comment,MyRecyclerViewHolder> adapter;
     FirebaseRecyclerOptions<Comment> options;
     RecyclerView recyclerView;
-
+    String UserNameOfPost = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,9 @@ public class CommentActivity extends AppCompatActivity {
         Bundle b = intent.getExtras();
         if(b != null){
             postId = (String)b.get("postId");
+            UserNameOfPost = (String)b.get("userNameOfPost");
             Log.d("postId is",postId);
+            Log.d("The username of Post is",UserNameOfPost);
         }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -87,7 +89,7 @@ public class CommentActivity extends AppCompatActivity {
     private void postComment() {
         String title = edt_title.getText().toString();
         String content = edt_content.getText().toString();
-        Comment cmt = new Comment(title,content);
+        Comment cmt = new Comment(title,content,UserNameOfPost);
 
         databaseReference.push().setValue(cmt);
 
@@ -104,6 +106,8 @@ public class CommentActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull MyRecyclerViewHolder holder, int position, @NonNull Comment model) {
                 holder.txt_title.setText(model.getTitle());
                 holder.txt_content.setText(model.getContent());
+                holder.txt_username.setText(model.getUserName());
+
             }
 
             @NonNull

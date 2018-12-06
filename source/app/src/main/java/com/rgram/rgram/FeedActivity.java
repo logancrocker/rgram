@@ -101,10 +101,9 @@ public class FeedActivity extends AppCompatActivity {
                 .setActiveColor(R.color.colorAccent) //设置选中的颜色
                 .setInActiveColor(R.color.colorPrimary);//未选中颜色
 
-        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,
-                "feed"))//添加图标和文字
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, "search"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background,"post"))
+        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.feed, "feed"))//添加图标和文字
+                .addItem(new BottomNavigationItem(R.drawable.search_actual, "search"))
+                .addItem(new BottomNavigationItem(R.drawable.picture,"post"))
                 .addItem(new BottomNavigationItem(R.drawable.world_bar_icon, "discover"))
                 .addItem(new BottomNavigationItem(R.drawable.user, "profile"))
                 .initialise();

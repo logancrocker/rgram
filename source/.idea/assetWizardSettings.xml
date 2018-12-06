@@ -20,10 +20,10 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="backgroundLayerName" value="final_world_bg" />
-                                      <entry key="foregroundImage" value="C:\Users\logan\Downloads\grid-world.svg" />
-                                      <entry key="foregroundLayerName" value="world_bar_icon" />
-                                      <entry key="outputName" value="world_final" />
+                                      <entry key="backgroundLayerName" value="search_actual_bg" />
+                                      <entry key="foregroundImage" value="C:\Users\logan\Downloads\search.svg" />
+                                      <entry key="foregroundLayerName" value="search_actual" />
+                                      <entry key="outputName" value="search_actual_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>

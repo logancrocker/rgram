@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,7 @@ public class CommentActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<Comment,MyRecyclerViewHolder> adapter;
     FirebaseRecyclerOptions<Comment> options;
     RecyclerView recyclerView;
-    String UserNameOfPost = "";
+    String UserEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,13 @@ public class CommentActivity extends AppCompatActivity {
         Bundle b = intent.getExtras();
         if(b != null){
             postId = (String)b.get("postId");
-            UserNameOfPost = (String)b.get("userNameOfPost");
             Log.d("postId is",postId);
-            Log.d("The username of Post is",UserNameOfPost);
         }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("posts" + postId + "Comments");
+        databaseReference = firebaseDatabase.getReference().child("posts").child(postId).child("Comments");
+        UserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,7 +90,7 @@ public class CommentActivity extends AppCompatActivity {
     private void postComment() {
         String title = edt_title.getText().toString();
         String content = edt_content.getText().toString();
-        Comment cmt = new Comment(title,content,UserNameOfPost);
+        Comment cmt = new Comment(title,content,UserEmail);
 
         databaseReference.push().setValue(cmt);
 

@@ -20,10 +20,10 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="backgroundLayerName" value="search_actual_bg" />
-                                      <entry key="foregroundImage" value="C:\Users\logan\Downloads\search.svg" />
-                                      <entry key="foregroundLayerName" value="search_actual" />
-                                      <entry key="outputName" value="search_actual_icon" />
+                                      <entry key="backgroundLayerName" value="insert_pic_bg" />
+                                      <entry key="foregroundImage" value="C:\Users\logan\Downloads\picture.svg" />
+                                      <entry key="foregroundLayerName" value="insert_pic" />
+                                      <entry key="outputName" value="insert_pic_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
